@@ -191,12 +191,20 @@ document.addEventListener('DOMContentLoaded', () => {
   ---------------------------------------------------------- */
   const filterBtns = document.querySelectorAll('.filter-btn');
   const portfolioCards = document.querySelectorAll('.portfolio-card');
+  const portfolioGrid = document.getElementById('portfolioGrid');
 
   if (filterBtns.length && portfolioCards.length) {
 
     const TRANSITION_MS = 350; // must match .portfolio-card transition in CSS
 
     const applyFilter = (filter) => {
+      // The Email Marketing category gets its own 5-across grid layout
+      // (see ".portfolio-grid.is-email-view" in style.css); every other
+      // category keeps the standard 3-column Funnel/Automation layout.
+      if (portfolioGrid) {
+        portfolioGrid.classList.toggle('is-email-view', filter === 'email');
+      }
+
       portfolioCards.forEach((card) => {
         const matches = card.dataset.category === filter;
 
