@@ -1070,7 +1070,7 @@ summary:focus-visible{
     padding: var(--space-3) var(--space-2); /* Slightly tighter padding */
   }
   .brand-mark {
-    font-size: 12px;             /* Slightly smaller font to help it fit */
+    font-size: 10px;             /* Slightly smaller font to help it fit */
     flex: 0 0 auto;              /* Keep original size, but let it wrap */
   }
   .section{padding:var(--space-8) 0;}
