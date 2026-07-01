@@ -1064,7 +1064,7 @@ summary:focus-visible{
     flex-wrap: wrap;             /* Change from nowrap to wrap */
     justify-content: center;     /* Centers the items nicely on mobile */
     overflow-x: visible;         /* Ensures nothing is hidden */
-    gap: 20px 16px;; /* Adjust gaps as needed */
+    gap: 20px 12px;; /* Adjust gaps as needed */
     margin-top: var(--space-4);
     margin-bottom: var(--space-4);
     padding: var(--space-3) var(--space-2); /* Slightly tighter padding */
