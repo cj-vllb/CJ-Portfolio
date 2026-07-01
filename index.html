@@ -1,562 +1,620 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CJ's Portfolio — Automation & AI Systems</title>
-  <link rel="icon" type="image/x-icon" href="CJlogo.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Montserrat:wght@300;400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="portfolio.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Christian Jan Villalba — Funnels, Automations & AI Agents That Convert</title>
+<meta name="description" content="Christian Jan Villalba — GoHighLevel funnel, automation, email marketing and AI agent specialist. Get in touch: christianvillalba.work@gmail.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="cpw">
 
-  <!-- Ambient glows -->
-  <div class="cpw-glow-red" aria-hidden="true"></div>
-  <div class="cpw-glow-gold" aria-hidden="true"></div>
-  <div class="cpw-grid-tex" aria-hidden="true"></div>
+<div class="bg-noise"></div>
 
-  <!-- Full-page web overlay SVG -->
-  <svg class="cpw-web-overlay" viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-    <!-- Radial web from top-right -->
-    <g stroke="#c8001e" stroke-width="0.8" fill="none">
-      <!-- Concentric arcs -->
-      <path d="M 1440 0 Q 1100 300 900 600" /><path d="M 1440 0 Q 1200 250 1050 550" />
-      <path d="M 1440 0 Q 1300 200 1200 500" /><path d="M 1440 0 Q 1350 150 1350 450" />
-      <path d="M 1440 0 Q 1050 350 800 650" /><path d="M 1440 0 Q 950 400 650 700" />
-      <!-- Arc rungs -->
-      <path d="M 1200 200 Q 1300 100 1440 0" /><path d="M 1000 350 Q 1220 150 1440 0" />
-      <path d="M 820 480 Q 1130 210 1440 0" /><path d="M 660 600 Q 1050 280 1440 0" />
-      <path d="M 500 700 Q 980 350 1440 0" /><path d="M 360 790 Q 900 420 1440 0" />
-    </g>
-    <!-- Small bottom-left web -->
-    <g stroke="#c8001e" stroke-width="0.6" fill="none" opacity="0.7">
-      <path d="M 0 900 Q 200 700 400 500" /><path d="M 0 900 Q 150 720 300 540" />
-      <path d="M 0 900 Q 100 750 200 580" /><path d="M 0 900 Q 50 780 100 620" />
-      <path d="M 100 800 Q 50 850 0 900" /><path d="M 200 720 Q 100 810 0 900" />
-      <path d="M 320 630 Q 160 765 0 900" /><path d="M 440 540 Q 220 720 0 900" />
-    </g>
-  </svg>
+<!-- HEADER -->
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+    <a href="#" class="logo">cjfolio<span class="dot">°</span></a>
+    <nav class="nav-pill">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="#contact" class="btn btn-light">Hire Me <span class="arrow">→</span></a>
+  </div>
+</header>
 
-  <!-- Lightbox -->
-  <div class="cpw-lightbox" id="cpw-lightbox" role="dialog" aria-modal="true" aria-label="Email preview">
-    <div class="cpw-lb-toolbar">
-      <button class="cpw-lb-btn" id="cpw-lb-zin"   aria-label="Zoom in">+</button>
-      <button class="cpw-lb-btn" id="cpw-lb-zout"  aria-label="Zoom out">−</button>
-      <button class="cpw-lb-btn" id="cpw-lb-reset" aria-label="Reset">⟳</button>
-      <button class="cpw-lb-btn" id="cpw-lb-close" aria-label="Close">✕</button>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-section">
+    <div class="container hero-left">
+      <div class="hero-title-group reveal">
+        <h1 class="hero-title">Christian Jan<br>Villalba</h1>
+        <div class="hero-cta-row">
+          <span class="availability-pill"><span class="pulse-dot"></span>Available for New Projects</span>
+          <button type="button" class="btn btn-glow" id="openProjectModal" aria-haspopup="dialog" aria-controls="projectModal">Start a Project <span class="arrow">→</span></button>
+        </div>
+      </div>
+      <div class="hero-info reveal">
+        <span class="hero-info-label">AI Automation Architect</span>
+        <p>I engineer automation systems and AI-powered workflows that move fast, scale hard, and run without you. From funnel architecture to intelligent agents — I build the infrastructure that makes businesses unstoppable.</p>
+      </div>
     </div>
-    <div class="cpw-lb-viewport" id="cpw-lb-vp">
-      <img class="cpw-lb-img" id="cpw-lb-img" src="" alt="Email preview" />
+
+    <div class="container hero-right">
+      <div class="hero-featured reveal">
+        <div class="featured-card">
+          <img src="heroimg.jpg" alt="Funnel performance dashboard, featured project">
+        </div>
+      </div>
     </div>
-    <p class="cpw-lb-hint">Scroll to zoom · Drag to pan</p>
   </div>
 
-  <!-- Mobile menu -->
-  <nav class="cpw-mobile-menu" id="cpw-mobile-menu" aria-label="Mobile navigation">
-    <a href="#about"     class="cpw-mlink">About</a>
-    <a href="#skills"    class="cpw-mlink">Skills</a>
-    <a href="#portfolio" class="cpw-mlink">Portfolio</a>
-    <a href="#ai-agents" class="cpw-mlink">AI Agents</a>
-    <a href="#contact"   class="cpw-mlink">Contact</a>
-  </nav>
+  <div class="container brand-strip reveal">
+    <span class="brand-mark">Funnel Building</span>
+    <span class="brand-mark">Email Marketing</span>
+    <span class="brand-mark">AI Agents</span>
+    <span class="brand-mark">A2P 10DLC</span>
+  </div>
+</section>
 
-  <div class="cpw-layer">
+<!-- START A PROJECT MODAL -->
+<div class="modal-overlay" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle" hidden>
+  <div class="modal-card">
+    <button type="button" class="modal-close" id="closeProjectModal" aria-label="Close">✕</button>
+    <h3 id="projectModalTitle">Let's Start Your Project</h3>
+    <p class="modal-sub">Tell me a bit about what you need and I'll get back to you within one business day.</p>
+    <form class="contact-form modal-form" id="modalContactForm" onsubmit="return false;">
+      <label for="modal-name">Your Name</label>
+      <input type="text" id="modal-name" name="modal-name" placeholder="Enter your full name">
+      <label for="modal-email">Your Email</label>
+      <input type="email" id="modal-email" name="modal-email" placeholder="Enter the e-mail">
+      <label for="modal-message">More About The Project</label>
+      <textarea rows="3" id="modal-message" name="modal-message" placeholder="Funnel, automation, email, or AI agent — tell us what you need"></textarea>
+      <button type="submit" class="btn btn-light full">Send Message</button>
+    </form>
+  </div>
+</div>
 
-    <!-- ===== NAV ===== -->
-    <header class="cpw-nav" role="banner">
-      <a href="/" class="cpw-nav-logo" aria-label="Home">
-        <img src="CJlogo.png" alt="Christian Jan Villalba" />
-      </a>
-      <ul class="cpw-nav-links" role="list">
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#portfolio">Portfolio</a></li>
-        <li><a href="#ai-agents">AI Agents</a></li>
-        <li><a href="#contact" class="cpw-nav-cta">Work With Me</a></li>
-      </ul>
-      <button class="cpw-burger" id="cpw-burger" aria-label="Toggle menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-    </header>
+<div class="section-divider" aria-hidden="true"></div>
 
-    <!-- ===== HERO ===== -->
-    <section class="cpw-hero" id="about" aria-labelledby="cpw-hero-name">
-      <div class="cpw-hero-slash" aria-hidden="true"></div>
+<!-- ABOUT / STATS -->
+<section class="section about-panel" id="about">
+  <div class="container about-inner">
+    <span class="eyebrow center reveal">★ About Me</span>
+    <p class="about-statement reveal">I help ambitious brands and startups build funnels, automations and AI systems that convert. <span class="muted">I believe in working smart, building fast, and designing with purpose.</span></p>
 
-      <!-- Swinging thread decoration -->
-      <div class="cpw-web-thread" aria-hidden="true"></div>
-
-      <div class="cpw-hero-text">
-        <div class="cpw-hero-eyebrow">Available for Projects</div>
-
-        <h1 class="cpw-hero-headline" id="cpw-hero-name">
-          <span class="cpw-hl-top">Automation Architect</span>
-          <span class="cpw-hl-name">Christian Jan<br/>Villalba</span>
-          <span class="cpw-hl-red">AI Systems Builder</span>
-        </h1>
-
-        <p class="cpw-hero-bio">
-          I engineer automation systems and AI-powered workflows that move fast, scale hard, and run without you. From funnel architecture to intelligent agents — I build the infrastructure that makes businesses unstoppable.
-        </p>
-        <div class="cpw-hero-chips">
-          <span class="cpw-chip">Funnel Building</span>
-          <span class="cpw-chip">n8n · Make.com · Zapier</span>
-          <span class="cpw-chip">Email Marketing</span>
-          <span class="cpw-chip">AI Agents</span>
-          <span class="cpw-chip">A2P 10DLC</span>
-        </div>
-        <div class="cpw-hero-actions">
-          <a href="#contact"   class="cpw-btn-primary">↗ Start a Project</a>
-          <a href="#portfolio" class="cpw-btn-outline">View My Work</a>
-        </div>
+    <div class="stats-row reveal-row">
+      <div class="stat reveal">
+        <span class="stat-label">Funnels Launched</span>
+        <span class="stat-number">140+</span>
       </div>
+      <div class="stat reveal">
+        <span class="stat-label">Years Of Experience</span>
+        <span class="stat-number">10+</span>
+      </div>
+      <div class="stat reveal">
+        <span class="stat-label">Happy Clients</span>
+        <span class="stat-number">50+</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <div class="cpw-hero-portrait">
-        <div class="cpw-portrait-wrap">
-          <!-- Corner web SVGs -->
-          <svg class="cpw-corner-web tl" viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <g stroke="#c8001e" stroke-width="1.2" fill="none" opacity="0.8">
-              <path d="M0 0 L90 0 M0 0 L0 90 M0 0 L90 90"/>
-              <path d="M0 20 Q20 10 40 0 M0 40 Q25 25 50 0 M0 60 Q35 35 60 0 M0 80 Q45 45 80 0"/>
-              <path d="M10 0 Q5 20 0 40 M25 0 Q15 25 0 55 M45 0 Q28 35 0 72"/>
-            </g>
-          </svg>
-          <svg class="cpw-corner-web tr" viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <g stroke="#c8001e" stroke-width="1.2" fill="none" opacity="0.8">
-              <path d="M0 0 L90 0 M0 0 L0 90 M0 0 L90 90"/>
-              <path d="M0 20 Q20 10 40 0 M0 40 Q25 25 50 0 M0 60 Q35 35 60 0 M0 80 Q45 45 80 0"/>
-              <path d="M10 0 Q5 20 0 40 M25 0 Q15 25 0 55 M45 0 Q28 35 0 72"/>
-            </g>
-          </svg>
-          <img
-            class="cpw-portrait-img"
-            src="https://assets.cdn.filesafe.space/Z4JRbniZSR1IiGBinthb/media/69fb93a1533d641a8930e869.png"
-            alt="Christian Jan Villalba — Automation & AI Systems"
-          />
-          <div class="cpw-portrait-badge">
-            <span class="cpw-bn">50+</span>
-            <span class="cpw-bl">Projects Delivered</span>
-          </div>
-          <div class="cpw-portrait-badge2">
-            <div class="cpw-bn">🤖 AI-Powered</div>
-            <div class="cpw-bl">Workflows &amp; Agents</div>
+<div class="section-divider" aria-hidden="true"></div>
+
+<!-- WHAT WE DO -->
+<section class="section services" id="services">
+  <div class="container">
+    <div class="section-head">
+      <div class="reveal">
+        <span class="eyebrow">⟁ My Expertise</span>
+        <h2 class="section-title">My <em>Services</em></h2>
+      </div>
+      <p class="section-desc reveal">I engineer the systems behind growth — from the first click to the closed deal — blending strategy, automation, and AI to build pipelines that perform.</p>
+    </div>
+
+    <div class="cards-row services-grid reveal-row">
+      <div class="service-card reveal">
+        <div class="service-icon">⬡</div>
+        <span class="card-index">/01</span>
+        <h3>Funnels</h3>
+        <p>Build high-converting funnels that turn cold traffic into paying customers, from landing page to checkout.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">▦</div>
+        <span class="card-index">/02</span>
+        <h3>Automations</h3>
+        <p>Design lifecycle automations that nurture, qualify and convert leads around the clock, with zero manual effort.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">⬢</div>
+        <span class="card-index">/03</span>
+        <h3>Email Marketing</h3>
+        <p>Craft email sequences and campaigns that build trust, retain customers, and drive repeat revenue.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">▥</div>
+        <span class="card-index">/04</span>
+        <h3>AI Agents</h3>
+        <p>Develop custom AI chatbots and voice bots that handle support, sales and bookings, 24 hours a day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider" aria-hidden="true"></div>
+
+<!-- PROJECTS -->
+<section class="section projects" id="projects">
+  <div class="container">
+
+    <div class="section-head">
+      <div class="reveal">
+        <span class="eyebrow">✺ Work Experiences</span>
+        <h2 class="section-title">My <em>Portfolio</em></h2>
+      </div>
+      <p class="section-desc reveal">11 systems shipped inside GoHighLevel — funnels, automations and email marketing, engineered to convert.</p>
+    </div>
+
+    <div class="portfolio-filters reveal" role="tablist" aria-label="Filter portfolio by category">
+      <button type="button" class="filter-btn is-active" data-filter="funnel">Funnels <span>3</span></button>
+      <button type="button" class="filter-btn" data-filter="automation">Automations <span>3</span></button>
+      <button type="button" class="filter-btn" data-filter="email">Email Marketing <span>5</span></button>
+    </div>
+
+    <div class="portfolio-grid reveal-row" id="portfolioGrid">
+
+      <article class="portfolio-card reveal" data-category="funnel">
+        <div class="portfolio-image">
+          <img src="https://via.placeholder.com/600x400?text=SaaS+Free-Trial+Funnel" alt="SaaS free-trial funnel landing page mockup" loading="lazy">
+          <span class="portfolio-cat-tag">Funnel</span>
+        </div>
+        <div class="portfolio-body">
+          <h3>SaaS Free-Trial Funnel</h3>
+          <p>A 4-step opt-in-to-trial funnel engineered to turn cold SaaS traffic into activated accounts, with built-in upgrade prompts triggered at first login.</p>
+          <div class="portfolio-stack">
+            <span class="stack-pill">GHL Funnel Builder</span>
+            <span class="stack-pill">Stripe Checkout</span>
+            <span class="stack-pill">Activation Triggers</span>
           </div>
         </div>
-      </div>
-    </section>
+      </article>
 
-    <!-- TICKER -->
-    <div class="cpw-ticker" aria-hidden="true">
-      <div class="cpw-ticker-label">Breaking</div>
-      <div style="overflow:hidden;flex:1">
-        <div class="cpw-ticker-track">
-          <!-- Two copies for seamless loop -->
-          <span class="cpw-ticker-item">Funnel Building</span><span class="cpw-ticker-item cpw-ticker-sep">◆</span>
-          <span class="cpw-ticker-item">Automation Workflows</span><span class="cpw-ticker-item cpw-ticker-sep">◆</span>
-          <span class="cpw-ticker-item">Email Marketing</span><span class="cpw-ticker-item cpw-ticker-sep">◆</span>
-          <span class="cpw-ticker-item">AI Agents</span><span class="cpw-ticker-item cpw-ticker-sep">◆</span>
-          <span class="cpw-ticker-item">A2P 10DLC Compliance</span><span class="cpw-ticker-item cpw-ticker-sep">◆</span>
-          <span class="cpw-ticker-item">n8n · Make.com · Zapier</span><span class="cpw-ticker-item cpw-ticker-sep">◆</span>
-          <span class="cpw-ticker-item">Third-Party Integrations</span><span class="cpw-ticker-item cpw-ticker-sep">◆</span>
-          <!-- duplicate -->
-          <span class="cpw-ticker-item">Funnel Building</span><span class="cpw-ticker-item cpw-ticker-sep">◆</span>
-          <span class="cpw-ticker-item">Automation Workflows</span><span class="cpw-ticker-item cpw-ticker-sep">◆</span>
-          <span class="cpw-ticker-item">Email Marketing</span><span class="cpw-ticker-item cpw-ticker-sep">◆</span>
-          <span class="cpw-ticker-item">AI Agents</span><span class="cpw-ticker-item cpw-ticker-sep">◆</span>
-          <span class="cpw-ticker-item">A2P 10DLC Compliance</span><span class="cpw-ticker-item cpw-ticker-sep">◆</span>
-          <span class="cpw-ticker-item">n8n · Make.com · Zapier</span><span class="cpw-ticker-item cpw-ticker-sep">◆</span>
-          <span class="cpw-ticker-item">Third-Party Integrations</span><span class="cpw-ticker-item cpw-ticker-sep">◆</span>
+      <article class="portfolio-card reveal" data-category="funnel">
+        <div class="portfolio-image">
+          <img src="https://via.placeholder.com/600x400?text=High-Ticket+Application+Funnel" alt="High-ticket application funnel mockup" loading="lazy">
+          <span class="portfolio-cat-tag">Funnel</span>
+        </div>
+        <div class="portfolio-body">
+          <h3>High-Ticket Application Funnel</h3>
+          <p>VSL-led application funnel that pre-qualifies leads before they ever reach a sales call, cutting no-show rates and protecting calendar time for serious buyers.</p>
+          <div class="portfolio-stack">
+            <span class="stack-pill">Multi-Step Forms</span>
+            <span class="stack-pill">Smart Lists</span>
+            <span class="stack-pill">SMS Reminders</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="portfolio-card reveal" data-category="funnel">
+        <div class="portfolio-image">
+          <img src="https://via.placeholder.com/600x400?text=Local+Lead-Gen+Funnel" alt="Local lead generation funnel mockup" loading="lazy">
+          <span class="portfolio-cat-tag">Funnel</span>
+        </div>
+        <div class="portfolio-body">
+          <h3>Local Lead-Gen Funnel</h3>
+          <p>Opt-in-to-tripwire funnel for a local service business, pairing a low-friction offer with an instant nurture sequence to convert browsers into booked jobs.</p>
+          <div class="portfolio-stack">
+            <span class="stack-pill">GHL Funnel Pages</span>
+            <span class="stack-pill">Pixel & Conversion API</span>
+            <span class="stack-pill">Nurture Workflow</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="portfolio-card reveal" data-category="automation">
+        <div class="portfolio-image">
+          <img src="https://via.placeholder.com/600x400?text=Multi-Channel+Reactivation" alt="Multi-channel reactivation workflow mockup" loading="lazy">
+          <span class="portfolio-cat-tag">Automation</span>
+        </div>
+        <div class="portfolio-body">
+          <h3>Multi-Channel Reactivation Workflow</h3>
+          <p>Branching email, SMS and ringless voicemail sequence that re-engages a dormant lead database, routing responders straight into a live pipeline stage.</p>
+          <div class="portfolio-stack">
+            <span class="stack-pill">Workflow Builder</span>
+            <span class="stack-pill">If/Else Branching</span>
+            <span class="stack-pill">RVM Integration</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="portfolio-card reveal" data-category="automation">
+        <div class="portfolio-image">
+          <img src="https://via.placeholder.com/600x400?text=Form-to-Booking+Automation" alt="Form to booking automation mockup" loading="lazy">
+          <span class="portfolio-cat-tag">Automation</span>
+        </div>
+        <div class="portfolio-body">
+          <h3>Form-to-Booking Automation</h3>
+          <p>Instant lead-to-calendar automation that routes new form submissions to the right rep, confirms the booking, and recovers no-shows automatically.</p>
+          <div class="portfolio-stack">
+            <span class="stack-pill">Smart Routing</span>
+            <span class="stack-pill">Calendar API</span>
+            <span class="stack-pill">Webhook Notifications</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="portfolio-card reveal" data-category="automation">
+        <div class="portfolio-image">
+          <img src="https://via.placeholder.com/600x400?text=Database+Reactivation+Campaign" alt="Database reactivation campaign mockup" loading="lazy">
+          <span class="portfolio-cat-tag">Automation</span>
+        </div>
+        <div class="portfolio-body">
+          <h3>Database Reactivation Campaign</h3>
+          <p>Compliant, segment-aware reactivation blast across a 12k-contact database, tagging and moving responders through pipeline stages without manual sorting.</p>
+          <div class="portfolio-stack">
+            <span class="stack-pill">Custom Field Segmentation</span>
+            <span class="stack-pill">Tag-Based Triggers</span>
+            <span class="stack-pill">10DLC Compliance</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="portfolio-card reveal" data-category="email">
+        <div class="portfolio-image">
+          <img src="https://via.placeholder.com/600x400?text=Modular+Newsletter+Template" alt="Modular newsletter template mockup" loading="lazy">
+          <span class="portfolio-cat-tag">Email</span>
+        </div>
+        <div class="portfolio-body">
+          <h3>Modular Newsletter Template</h3>
+          <p>Brand-consistent, drag-and-drop newsletter system built once and reused weekly, with dynamic merge fields so every send still feels personal.</p>
+          <div class="portfolio-stack">
+            <span class="stack-pill">GHL Email Builder</span>
+            <span class="stack-pill">Modular Blocks</span>
+            <span class="stack-pill">Merge Fields</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="portfolio-card reveal" data-category="email">
+        <div class="portfolio-image">
+          <img src="https://via.placeholder.com/600x400?text=Abandoned+Cart+Recovery" alt="Abandoned cart recovery sequence mockup" loading="lazy">
+          <span class="portfolio-cat-tag">Email</span>
+        </div>
+        <div class="portfolio-body">
+          <h3>Abandoned Cart Recovery Sequence</h3>
+          <p>Three-email cart recovery flow with escalating urgency and a time-boxed incentive, triggered the moment a checkout is abandoned.</p>
+          <div class="portfolio-stack">
+            <span class="stack-pill">Cart-Abandon Trigger</span>
+            <span class="stack-pill">Webhook Integration</span>
+            <span class="stack-pill">Conditional Discount Logic</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="portfolio-card reveal" data-category="email">
+        <div class="portfolio-image">
+          <img src="https://via.placeholder.com/600x400?text=Holiday+Campaign+Series" alt="Holiday email campaign series mockup" loading="lazy">
+          <span class="portfolio-cat-tag">Email</span>
+        </div>
+        <div class="portfolio-body">
+          <h3>Holiday Campaign Series</h3>
+          <p>Seasonal, multi-touch promotional sequence with A/B-tested subject lines, scheduled across segmented lists to spread send load and protect deliverability.</p>
+          <div class="portfolio-stack">
+            <span class="stack-pill">Segmented Broadcasts</span>
+            <span class="stack-pill">A/B Testing</span>
+            <span class="stack-pill">Send Scheduling</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="portfolio-card reveal" data-category="email">
+        <div class="portfolio-image">
+          <img src="https://via.placeholder.com/600x400?text=Cold+Outreach+Email+Flow" alt="Cold outreach email flow mockup" loading="lazy">
+          <span class="portfolio-cat-tag">Email</span>
+        </div>
+        <div class="portfolio-body">
+          <h3>Cold Outreach Email Flow</h3>
+          <p>Personalized B2B cold sequence with reply-detection logic that automatically pauses the flow the moment a prospect responds.</p>
+          <div class="portfolio-stack">
+            <span class="stack-pill">Personalization Tokens</span>
+            <span class="stack-pill">Reply Detection</span>
+            <span class="stack-pill">Deliverability Warm-Up</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="portfolio-card reveal" data-category="email">
+        <div class="portfolio-image">
+          <img src="https://via.placeholder.com/600x400?text=Client+Onboarding+Sequence" alt="Client onboarding sequence mockup" loading="lazy">
+          <span class="portfolio-cat-tag">Email</span>
+        </div>
+        <div class="portfolio-body">
+          <h3>Client Onboarding Sequence</h3>
+          <p>Milestone-triggered onboarding flow that fires the next email only once a client completes the prior step, keeping new accounts moving without manual chasing.</p>
+          <div class="portfolio-stack">
+            <span class="stack-pill">Pipeline-Stage Triggers</span>
+            <span class="stack-pill">Conditional Content</span>
+            <span class="stack-pill">Calendar Embed</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- AI AGENTS SUB-SECTION (extracted from the grid above) -->
+    <div class="ai-agents-subsection reveal">
+      <div class="ai-agents-head">
+        <span class="eyebrow">▥ AI Agents</span>
+        <h3 class="ai-agents-title">Always-On <em>AI Agents</em></h3>
+        <p class="ai-agents-desc">Conversational systems that qualify, support and book around the clock. Two staging areas below, ready to host live chatbot and voice agent embeds.</p>
+      </div>
+      <div class="ai-agents-grid">
+        <div class="ai-agent-stage">
+          <div class="ai-agent-stage-head">
+            <span class="ai-agent-icon">💬</span>
+            <div>
+              <h4>Chatbot</h4>
+              <p>Website & SMS conversation AI</p>
+            </div>
+          </div>
+          <div class="ai-agent-embed-area" id="chatbotEmbed" data-embed="chatbot">
+            <span class="ai-agent-placeholder">Chatbot embed will live here</span>
+          </div>
+        </div>
+        <div class="ai-agent-stage">
+          <div class="ai-agent-stage-head">
+            <span class="ai-agent-icon">🎙</span>
+            <div>
+              <h4>Voice Agent</h4>
+              <p>Inbound calling & booking AI</p>
+            </div>
+          </div>
+          <div class="ai-agent-embed-area" id="voiceAgentEmbed" data-embed="voice-agent">
+            <span class="ai-agent-placeholder">Voice agent embed will live here</span>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- ===== SKILLS ===== -->
-    <section class="cpw-section cpw-skills-bg" id="skills" aria-labelledby="cpw-skills-title">
-      <div class="cpw-section-label cpw-reveal">Expertise</div>
-      <h2 class="cpw-section-title cpw-reveal" id="cpw-skills-title">Built to <em>Automate</em><br/>Everything</h2>
-      <div class="cpw-rule cpw-reveal"><div class="cpw-rule-line"></div><div class="cpw-rule-dot"></div></div>
-      <p class="cpw-section-desc cpw-reveal">A full-stack operator across automation, AI, and digital infrastructure — every skill engineered to save time and scale revenue.</p>
+    <div class="center-cta reveal">
+      <a href="#contact" class="btn btn-light">Let's Build Yours <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
 
-      <div class="cpw-skills-grid">
-        <article class="cpw-skill-card cpw-reveal">
-          <span class="cpw-skill-icon">🚀</span>
-          <h3 class="cpw-skill-name">Funnel Building</h3>
-          <p class="cpw-skill-desc">High-converting sales funnels from opt-in to upsell — every step engineered to move prospects and maximize lifetime value.</p>
-        </article>
-        <article class="cpw-skill-card cpw-reveal">
-          <span class="cpw-skill-icon">⚙️</span>
-          <h3 class="cpw-skill-name">Automation Workflows</h3>
-          <p class="cpw-skill-desc">End-to-end process automation that eliminates manual tasks, reduces error, and operates around the clock without intervention.</p>
-        </article>
-        <article class="cpw-skill-card cpw-reveal">
-          <span class="cpw-skill-icon">✉️</span>
-          <h3 class="cpw-skill-name">Email Marketing</h3>
-          <p class="cpw-skill-desc">Strategic campaigns, drip sequences, and broadcast architecture that nurture relationships and drive consistent revenue.</p>
-        </article>
-        <article class="cpw-skill-card cpw-reveal">
-          <span class="cpw-skill-icon">🤖</span>
-          <h3 class="cpw-skill-name">AI Agents</h3>
-          <p class="cpw-skill-desc">Custom AI chatbots and voice agents trained on your business — handling leads, support, and sales autonomously 24/7.</p>
-        </article>
-        <article class="cpw-skill-card cpw-reveal">
-          <span class="cpw-skill-icon">📱</span>
-          <h3 class="cpw-skill-name">A2P 10DLC Compliance</h3>
-          <p class="cpw-skill-desc">Full setup, registration, and ongoing compliance for A2P 10DLC SMS campaigns — clean delivery, zero carrier filtering.</p>
-        </article>
-        <article class="cpw-skill-card cpw-reveal">
-          <span class="cpw-skill-icon">🔗</span>
-          <h3 class="cpw-skill-name">Third-Party Integrations</h3>
-          <p class="cpw-skill-desc">Deep integrations across your entire stack via n8n, Make.com, and Zapier — connecting every tool into one coherent system.</p>
-        </article>
+<div class="section-divider" aria-hidden="true"></div>
+
+<!-- PROCESS -->
+<section class="section process-panel">
+  <div class="container">
+    <div class="section-head">
+      <div class="reveal">
+        <span class="eyebrow">≈ The Process</span>
+        <h2 class="section-title"><em>The Journey to a</em><br>Successful System</h2>
       </div>
-    </section>
+      <p class="section-desc reveal">I keep things lean and collaborative — so ideas go from concept to a live, converting system without the chaos.</p>
+    </div>
 
-    <!-- ===== PORTFOLIO ===== -->
-    <section class="cpw-section" id="portfolio" aria-labelledby="cpw-portfolio-title">
-      <div class="cpw-section-label cpw-reveal">Portfolio</div>
-      <h2 class="cpw-section-title cpw-reveal" id="cpw-portfolio-title">Work That<br/><em>Hits Different</em></h2>
-      <div class="cpw-rule cpw-reveal"><div class="cpw-rule-line"></div><div class="cpw-rule-dot"></div></div>
-
-      <!-- FUNNELS -->
-      <div style="margin-bottom:5rem">
-        <div class="cpw-masthead-divider cpw-reveal">
-          <div class="cpw-masthead-divider-inner">◆ Funnels ◆</div>
-        </div>
-        <p class="cpw-section-desc cpw-reveal" style="margin-bottom:1.5rem">Sales funnels engineered for conversion — each touchpoint optimized to move prospects through the buyer journey.</p>
-        <div class="cpw-project-grid cpw-reveal">
-          <a href="https://example.com/" target="_blank" rel="noopener" class="cpw-project-card" aria-label="Funnel project 1">
-            <div class="cpw-project-thumb-wrap">
-              <img src="https://assets.cdn.filesafe.space/Z4JRbniZSR1IiGBinthb/media/69fb8ce50394c985036d2f06.png" alt="Lead Gen Funnel" class="cpw-project-thumb" loading="lazy"/>
-            </div>
-            <div class="cpw-project-body">
-              <div class="cpw-project-label">Funnel</div>
-              <div class="cpw-project-title">Lead Generation Funnel</div>
-            </div>
-          </a>
-          <a href="https://example.com/" target="_blank" rel="noopener" class="cpw-project-card" aria-label="Funnel project 2">
-            <div class="cpw-project-thumb-wrap">
-              <img src="https://assets.cdn.filesafe.space/Z4JRbniZSR1IiGBinthb/media/69fb8ce50394c985036d2f06.png" alt="High-Ticket Sales Funnel" class="cpw-project-thumb" loading="lazy"/>
-            </div>
-            <div class="cpw-project-body">
-              <div class="cpw-project-label">Funnel</div>
-              <div class="cpw-project-title">High-Ticket Sales Funnel</div>
-            </div>
-          </a>
-          <a href="https://example.com/" target="_blank" rel="noopener" class="cpw-project-card" aria-label="Funnel project 3">
-            <div class="cpw-project-thumb-wrap">
-              <img src="https://assets.cdn.filesafe.space/Z4JRbniZSR1IiGBinthb/media/69fb8ce50394c985036d2f06.png" alt="Webinar Funnel" class="cpw-project-thumb" loading="lazy"/>
-            </div>
-            <div class="cpw-project-body">
-              <div class="cpw-project-label">Funnel</div>
-              <div class="cpw-project-title">Webinar Registration Funnel</div>
-            </div>
-          </a>
-        </div>
+    <div class="cards-row process-grid reveal-row">
+      <div class="process-card reveal">
+        <span class="card-index">/01</span>
+        <h3>Audit & Discover</h3>
+        <p>I map your funnel, automations and tech stack to find exactly where revenue is leaking.</p>
+        <span class="process-icon">💡</span>
       </div>
+      <div class="process-card reveal">
+        <span class="card-index">/02</span>
+        <h3>Strategy & Design</h3>
+        <p>I design the funnel flow, automation logic and AI conversation scripts around your customer.</p>
+        <span class="process-icon">✦</span>
+      </div>
+      <div class="process-card reveal">
+        <span class="card-index">/03</span>
+        <h3>Build & Automate</h3>
+        <p>I build the funnel, connect the automations, and train your AI chatbot or voice bot.</p>
+        <span class="process-icon">⟨/⟩</span>
+      </div>
+      <div class="process-card reveal">
+        <span class="card-index">/04</span>
+        <h3>Launch & Optimize</h3>
+        <p>I launch, monitor performance, and continuously optimize every step for conversions.</p>
+        <span class="process-icon">🚀</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <!-- AUTOMATIONS -->
-      <div style="margin-bottom:5rem">
-        <div class="cpw-masthead-divider cpw-reveal">
-          <div class="cpw-masthead-divider-inner">◆ Automations ◆</div>
-        </div>
-        <p class="cpw-section-desc cpw-reveal" style="margin-bottom:1.5rem">Complex multi-step workflows that save hundreds of hours and eliminate costly human error from your operations.</p>
-        <div class="cpw-project-grid cpw-reveal">
-          <a href="https://example.com/" target="_blank" rel="noopener" class="cpw-project-card" aria-label="Automation 1">
-            <div class="cpw-project-thumb-wrap">
-              <img src="https://assets.cdn.filesafe.space/Z4JRbniZSR1IiGBinthb/media/69fb8ce50394c985036d2f06.png" alt="CRM Lead Routing" class="cpw-project-thumb" loading="lazy"/>
-            </div>
-            <div class="cpw-project-body">
-              <div class="cpw-project-label">Automation</div>
-              <div class="cpw-project-title">CRM Lead Routing Workflow</div>
-            </div>
-          </a>
-          <a href="https://example.com/" target="_blank" rel="noopener" class="cpw-project-card" aria-label="Automation 2">
-            <div class="cpw-project-thumb-wrap">
-              <img src="https://assets.cdn.filesafe.space/Z4JRbniZSR1IiGBinthb/media/69fb8ce50394c985036d2f06.png" alt="Order Fulfillment" class="cpw-project-thumb" loading="lazy"/>
-            </div>
-            <div class="cpw-project-body">
-              <div class="cpw-project-label">Automation</div>
-              <div class="cpw-project-title">Order Fulfillment Pipeline</div>
-            </div>
-          </a>
-          <a href="https://example.com/" target="_blank" rel="noopener" class="cpw-project-card" aria-label="Automation 3">
-            <div class="cpw-project-thumb-wrap">
-              <img src="https://assets.cdn.filesafe.space/Z4JRbniZSR1IiGBinthb/media/69fb8ce50394c985036d2f06.png" alt="Appointment Booking" class="cpw-project-thumb" loading="lazy"/>
-            </div>
-            <div class="cpw-project-body">
-              <div class="cpw-project-label">Automation</div>
-              <div class="cpw-project-title">Appointment Booking System</div>
-            </div>
-          </a>
+<div class="section-divider" aria-hidden="true"></div>
+
+<!-- AWARDS -->
+<section class="section awards">
+  <div class="container">
+    <div class="center-cta">
+      <span class="eyebrow center reveal">🛡 Recognition</span>
+    </div>
+    <div class="award-list">
+      <div class="award-row reveal">
+        <span class="award-source">Email Marketing Awards</span>
+        <span class="award-title">Top 5 Best Email Automation Programs 2024</span>
+        <span class="award-project">Abandoned Cart Recovery Sequence</span>
+      </div>
+      <div class="award-row reveal">
+        <span class="award-source">Product Hunt</span>
+        <span class="award-title">Winner - Best AI Chatbot Implementation 2024</span>
+        <span class="award-project">AI Chatbot Integration</span>
+      </div>
+      <div class="award-row reveal">
+        <span class="award-source">Awwwards</span>
+        <span class="award-title">Honor SOTD — Funnel Build, November 2024</span>
+        <span class="award-project">SaaS Free-Trial Funnel</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider" aria-hidden="true"></div>
+
+<!-- TESTIMONIALS -->
+<section class="section testimonials">
+  <div class="container">
+    <div class="center-cta">
+      <span class="eyebrow center reveal">❝ Testimonials</span>
+      <h2 class="section-title center reveal"><em>Hear from the</em> Clients<br>I've Partnered <span class="muted">With</span></h2>
+    </div>
+    <div class="testi-grid reveal-row">
+      <div class="testi-card reveal">
+        <p>"Our new funnel and email automations took our conversion rate from 1.8% to 4.6% in two months."</p>
+        <div class="testi-person">
+          <span class="avatar"></span>
+          <div><strong>Rachel Kim</strong><small>Founder, BloomBox</small></div>
         </div>
       </div>
-
-      <!-- EMAIL MARKETING -->
-      <div>
-        <div class="cpw-masthead-divider cpw-reveal">
-          <div class="cpw-masthead-divider-inner">◆ Email Marketing ◆</div>
+      <div class="testi-card reveal">
+        <p>"The AI chatbot now handles 70% of our support tickets, and the voice bot books appointments around the clock."</p>
+        <div class="testi-person">
+          <span class="avatar"></span>
+          <div><strong>Jordan Reed</strong><small>CEO, Northline</small></div>
         </div>
-        <p class="cpw-section-desc cpw-reveal" style="margin-bottom:1.5rem">Email copy and design built to open, engage, and convert — click any preview to view the full campaign in the lightbox.</p>
-        <div class="cpw-email-grid cpw-reveal">
-          <div class="cpw-email-item" data-src="https://assets.cdn.filesafe.space/Z4JRbniZSR1IiGBinthb/media/69fb917f7167fd9a35daf50f.png" role="button" tabindex="0" aria-label="Email campaign 1">
-            <div class="cpw-email-thumb-wrap">
-              <img src="https://assets.cdn.filesafe.space/Z4JRbniZSR1IiGBinthb/media/69fb917f7167fd9a35daf50f.png" alt="Email 1" loading="lazy"/>
-              <div class="cpw-email-overlay"><div class="cpw-email-zoom-icon">🔍</div></div>
-            </div>
-            <div class="cpw-email-caption">Welcome Sequence · #1</div>
-          </div>
-          <div class="cpw-email-item" data-src="https://assets.cdn.filesafe.space/Z4JRbniZSR1IiGBinthb/media/69fb917f7167fd9a35daf50f.png" role="button" tabindex="0" aria-label="Email campaign 2">
-            <div class="cpw-email-thumb-wrap">
-              <img src="https://assets.cdn.filesafe.space/Z4JRbniZSR1IiGBinthb/media/69fb917f7167fd9a35daf50f.png" alt="Email 2" loading="lazy"/>
-              <div class="cpw-email-overlay"><div class="cpw-email-zoom-icon">🔍</div></div>
-            </div>
-            <div class="cpw-email-caption">Flash Sale Broadcast · #2</div>
-          </div>
-          <div class="cpw-email-item" data-src="https://assets.cdn.filesafe.space/Z4JRbniZSR1IiGBinthb/media/69fb917f7167fd9a35daf50f.png" role="button" tabindex="0" aria-label="Email campaign 3">
-            <div class="cpw-email-thumb-wrap">
-              <img src="https://assets.cdn.filesafe.space/Z4JRbniZSR1IiGBinthb/media/69fb917f7167fd9a35daf50f.png" alt="Email 3" loading="lazy"/>
-              <div class="cpw-email-overlay"><div class="cpw-email-zoom-icon">🔍</div></div>
-            </div>
-            <div class="cpw-email-caption">Re-engagement Drip · #3</div>
-          </div>
-          <div class="cpw-email-item" data-src="https://assets.cdn.filesafe.space/Z4JRbniZSR1IiGBinthb/media/69fb917f7167fd9a35daf50f.png" role="button" tabindex="0" aria-label="Email campaign 4">
-            <div class="cpw-email-thumb-wrap">
-              <img src="https://assets.cdn.filesafe.space/Z4JRbniZSR1IiGBinthb/media/69fb917f7167fd9a35daf50f.png" alt="Email 4" loading="lazy"/>
-              <div class="cpw-email-overlay"><div class="cpw-email-zoom-icon">🔍</div></div>
-            </div>
-            <div class="cpw-email-caption">Nurture Sequence · #4</div>
-          </div>
-          <div class="cpw-email-item" data-src="https://assets.cdn.filesafe.space/Z4JRbniZSR1IiGBinthb/media/69fb917f7167fd9a35daf50f.png" role="button" tabindex="0" aria-label="Email campaign 5">
-            <div class="cpw-email-thumb-wrap">
-              <img src="https://assets.cdn.filesafe.space/Z4JRbniZSR1IiGBinthb/media/69fb917f7167fd9a35daf50f.png" alt="Email 5" loading="lazy"/>
-              <div class="cpw-email-overlay"><div class="cpw-email-zoom-icon">🔍</div></div>
-            </div>
-            <div class="cpw-email-caption">Abandoned Cart · #5</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider" aria-hidden="true"></div>
+
+<!-- FAQ -->
+<section class="section faq-panel">
+  <div class="container">
+    <div class="center-cta">
+      <span class="eyebrow center reveal">? FAQs</span>
+      <h2 class="section-title center reveal">FA<em>Q</em>s</h2>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item reveal is-open">
+        <button type="button" class="faq-question" aria-expanded="true">
+          <span>How long does a typical project take?</span>
+          <span class="faq-toggle">−</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>Project timelines vary based on scope, but most funnel or automation builds take between 2–4 weeks. AI chatbot and voice bot integrations may take a little longer — I'll always give you a clear timeline upfront.</p>
           </div>
         </div>
       </div>
-    </section>
-
-    <!-- ===== AI AGENTS ===== -->
-    <section class="cpw-section cpw-ai-bg" id="ai-agents" aria-labelledby="cpw-ai-title">
-      <div class="cpw-section-label cpw-reveal">Intelligence Layer</div>
-      <h2 class="cpw-section-title cpw-reveal" id="cpw-ai-title">AI Agents That<br/><em>Work</em> <span class="cpw-gold">24/7</span></h2>
-      <div class="cpw-rule cpw-reveal"><div class="cpw-rule-line"></div><div class="cpw-rule-dot"></div></div>
-      <p class="cpw-section-desc cpw-reveal">Custom-trained agents deployed into your business — handling conversations, qualifying leads, and resolving support around the clock.</p>
-      <div class="cpw-ai-grid cpw-reveal">
-        <div class="cpw-ai-card">
-          <span class="cpw-ai-icon">💬</span>
-          <h3 class="cpw-ai-title">AI Chatbot Agent</h3>
-          <p class="cpw-ai-desc">An intelligent conversational agent trained on your products, FAQs, and sales process — qualifies leads, books calls, and handles objections automatically.</p>
-          <div class="cpw-ai-embed">
-            <strong>[ AI Chatbot Embed ]</strong>
-            Paste your chatbot embed code here.<br/>
-            Supports GoHighLevel, Tidio, Intercom, Voiceflow &amp; custom iframes.
-          </div>
-        </div>
-        <div class="cpw-ai-card">
-          <span class="cpw-ai-icon">🎙️</span>
-          <h3 class="cpw-ai-title">AI Voice Agent</h3>
-          <p class="cpw-ai-desc">A lifelike AI voice agent that answers inbound calls, qualifies prospects with natural conversation, and syncs outcomes to your CRM in real time.</p>
-          <div class="cpw-ai-embed">
-            <strong>[ AI Voice Agent Embed ]</strong>
-            Paste your voice agent embed code here.<br/>
-            Supports Vapi, Retell AI, Bland.ai, ElevenLabs Conversational AI.
+      <div class="faq-item reveal">
+        <button type="button" class="faq-question" aria-expanded="false">
+          <span>Do you offer ongoing support after launch?</span>
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>Yes — I offer flexible support and optimization packages to keep your funnels, automations and AI agents performing after every launch.</p>
           </div>
         </div>
       </div>
-    </section>
-
-    <!-- ===== CONTACT ===== -->
-    <section class="cpw-section" id="contact" aria-labelledby="cpw-contact-title">
-      <div class="cpw-contact-inner">
-        <!-- Web art visual -->
-        <div class="cpw-contact-visual" aria-hidden="true">
-          <svg class="cpw-web-art" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
-            <g stroke="#c8001e" stroke-width="1" fill="none" opacity="0.7">
-              <!-- Radial lines from center -->
-              <line x1="150" y1="150" x2="150" y2="10"/>
-              <line x1="150" y1="150" x2="270" y2="78"/>
-              <line x1="150" y1="150" x2="270" y2="222"/>
-              <line x1="150" y1="150" x2="150" y2="290"/>
-              <line x1="150" y1="150" x2="30" y2="222"/>
-              <line x1="150" y1="150" x2="30" y2="78"/>
-              <line x1="150" y1="150" x2="218" y2="30"/>
-              <line x1="150" y1="150" x2="290" y2="150"/>
-              <line x1="150" y1="150" x2="218" y2="270"/>
-              <line x1="150" y1="150" x2="82" y2="270"/>
-              <line x1="150" y1="150" x2="10" y2="150"/>
-              <line x1="150" y1="150" x2="82" y2="30"/>
-              <!-- Concentric polygons -->
-              <polygon points="150,40 230,95 230,205 150,260 70,205 70,95" stroke-opacity="0.6"/>
-              <polygon points="150,75 205,108 205,192 150,225 95,192 95,108" stroke-opacity="0.5"/>
-              <polygon points="150,108 183,124 183,176 150,192 117,176 117,124" stroke-opacity="0.45"/>
-              <polygon points="150,128 168,138 168,162 150,172 132,162 132,138" stroke-opacity="0.4"/>
-            </g>
-            <!-- Center dot -->
-            <circle cx="150" cy="150" r="6" fill="#f5c842" opacity="0.9"/>
-            <circle cx="150" cy="150" r="12" stroke="#f5c842" stroke-width="1" fill="none" opacity="0.4"/>
-          </svg>
-        </div>
-
-        <div>
-          <div class="cpw-section-label cpw-reveal">Let's Build Together</div>
-          <h2 class="cpw-section-title cpw-reveal" id="cpw-contact-title">Ready to <em>Automate</em><br/>Your Growth?</h2>
-          <div class="cpw-rule cpw-reveal"><div class="cpw-rule-line"></div><div class="cpw-rule-dot"></div></div>
-          <p class="cpw-section-desc cpw-reveal" style="margin-bottom:1.5rem">I work with a focused roster of clients at a time — every project gets serious attention. Let's talk about what we can build together.</p>
-          <div class="cpw-contact-items cpw-reveal">
-            <a href="mailto:christianvillalba.work@gmail.com" class="cpw-contact-item">
-              <div class="cpw-contact-ico">✉️</div>
-              <div>
-                <div class="cpw-contact-label">Email</div>
-                <div class="cpw-contact-val">christianvillalba.work@gmail.com</div>
-              </div>
-            </a>
-          </div>
-          <div style="margin-top:2.2rem" class="cpw-reveal">
-            <a href="mailto:christianvillalba.work@gmail.com" class="cpw-btn-primary">✉️ &nbsp;Send Me a Message</a>
+      <div class="faq-item reveal">
+        <button type="button" class="faq-question" aria-expanded="false">
+          <span>What if I only need one service, like email or a chatbot?</span>
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>That's no problem — I offer both bundled systems and standalone services like funnels, automations, email, or a single AI agent.</p>
           </div>
         </div>
       </div>
-    </section>
-
-    <!-- ===== FOOTER ===== -->
-    <footer class="cpw-footer" role="contentinfo">
-      <a href="/" class="cpw-footer-logo" aria-label="Home">
-        <img src="CJlogo.png" alt="Christian Jan Villalba" />
-      </a>
-      <p class="cpw-footer-copy">© 2025 Christian Jan Villalba. All rights reserved.</p>
-      <div class="cpw-footer-links">
-        <a href="mailto:christianvillalba.work@gmail.com">Email</a>
-        <a href="#contact" class="cpw-footer-cta">Work With Me</a>
+      <div class="faq-item reveal">
+        <button type="button" class="faq-question" aria-expanded="false">
+          <span>Can you work with my existing CRM or tech stack?</span>
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>Absolutely — I integrate with most major CRMs, email platforms and automation tools, and work as an extension of your team.</p>
+          </div>
+        </div>
       </div>
-    </footer>
+      <div class="faq-item reveal">
+        <button type="button" class="faq-question" aria-expanded="false">
+          <span>Do you work with startups or only established companies?</span>
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>I work with both — from early-stage startups validating their first funnel to established companies scaling automations and AI agents.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  </div><!-- /.cpw-layer -->
-</div><!-- /#cpw -->
+<div class="section-divider" aria-hidden="true"></div>
 
-<script>
-(function () {
-  'use strict';
+<!-- CONTACT -->
+<section class="section contact-panel" id="contact">
+  <div class="container contact-grid reveal-row">
+    <div class="contact-left reveal">
+      <div class="contact-left-inner">
+        <h2 class="section-title">Let's Build<br><em>Your Growth Engine</em></h2>
+        <p class="contact-direct">Prefer email? <a href="mailto:christianvillalba.work@gmail.com">christianvillalba.work@gmail.com</a></p>
+      </div>
+    </div>
+    <div class="contact-right reveal">
+      <h3>Fill This Form Below</h3>
+      <form class="contact-form" onsubmit="return false;">
+        <label for="contact-name">Your Name</label>
+        <input type="text" id="contact-name" name="contact-name" placeholder="Enter your full name">
+        <label for="contact-email">Your Email</label>
+        <input type="email" id="contact-email" name="contact-email" placeholder="Enter the e-mail">
+        <label for="contact-message">More About The Project</label>
+        <textarea rows="3" id="contact-message" name="contact-message" placeholder="Funnel, automation, email, or AI agent — tell us what you need"></textarea>
+        <button type="submit" class="btn btn-light full">Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
 
-  /* ── HAMBURGER ── */
-  var burger    = document.getElementById('cpw-burger');
-  var mobileNav = document.getElementById('cpw-mobile-menu');
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-divider" aria-hidden="true"></div>
+  <div class="container footer-top reveal-row">
+    <div class="footer-col reveal">
+      <span class="footer-label">Location</span>
+      <p>Remote<br>Available Worldwide</p>
+      <span class="footer-label">Contact</span>
+      <p>christianvillalba.work@gmail.com</p>
+    </div>
+    <div class="footer-col reveal">
+      <span class="footer-label">Links</span>
+      <a href="#">About</a>
+      <a href="#">Project</a>
+      <a href="#">Blogs</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="footer-col reveal">
+      <span class="footer-label">Socials</span>
+      <a href="#">Instagram</a>
+      <a href="#">X(Twitter)</a>
+      <a href="#">Behance</a>
+      <a href="#">Dribbble</a>
+    </div>
+  </div>
+  <div class="footer-wordmark reveal">christian</div>
+  <div class="container footer-bottom">
+    <span>© 2026 Christian Jan Villalba. All Rights Reserved</span>
+    <button type="button" class="back-to-top" id="backToTop">Back to top ↑</button>
+  </div>
+</footer>
 
-  function toggleMenu(open) {
-    burger.classList.toggle('is-open', open);
-    mobileNav.classList.toggle('is-open', open);
-    burger.setAttribute('aria-expanded', String(open));
-    document.body.style.overflow = open ? 'hidden' : '';
-  }
-  burger.addEventListener('click', function () {
-    toggleMenu(!mobileNav.classList.contains('is-open'));
-  });
-  document.querySelectorAll('.cpw-mlink').forEach(function (a) {
-    a.addEventListener('click', function () { toggleMenu(false); });
-  });
-
-  /* ── LIGHTBOX ── */
-  var lb      = document.getElementById('cpw-lightbox');
-  var lbImg   = document.getElementById('cpw-lb-img');
-  var lbVp    = document.getElementById('cpw-lb-vp');
-  var lbClose = document.getElementById('cpw-lb-close');
-  var lbZin   = document.getElementById('cpw-lb-zin');
-  var lbZout  = document.getElementById('cpw-lb-zout');
-  var lbReset = document.getElementById('cpw-lb-reset');
-
-  var ls = { scale: 1, x: 0, y: 0, dragging: false, sx: 0, sy: 0 };
-  var MIN = 0.5, MAX = 8, STEP = 0.25;
-
-  function applyT() {
-    lbImg.style.transform = 'translate(' + ls.x + 'px,' + ls.y + 'px) scale(' + ls.scale + ')';
-  }
-  function resetT() { ls.scale = 1; ls.x = 0; ls.y = 0; applyT(); }
-
-  function openLb(src) {
-    lbImg.src = src; resetT();
-    lb.classList.add('is-open');
-    document.body.style.overflow = 'hidden';
-    lbClose.focus();
-  }
-  function closeLb() {
-    lb.classList.remove('is-open');
-    document.body.style.overflow = '';
-    setTimeout(function () { lbImg.src = ''; }, 300);
-  }
-
-  lbClose.addEventListener('click', closeLb);
-  lb.addEventListener('click', function (e) { if (e.target === lb) closeLb(); });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && lb.classList.contains('is-open')) closeLb();
-  });
-
-  lbZin.addEventListener('click', function () { ls.scale = Math.min(MAX, ls.scale + STEP); applyT(); });
-  lbZout.addEventListener('click', function () { ls.scale = Math.max(MIN, ls.scale - STEP); applyT(); });
-  lbReset.addEventListener('click', resetT);
-
-  lbVp.addEventListener('wheel', function (e) {
-    e.preventDefault();
-    ls.scale = Math.min(MAX, Math.max(MIN, ls.scale + (e.deltaY > 0 ? -STEP : STEP)));
-    applyT();
-  }, { passive: false });
-
-  lbVp.addEventListener('mousedown', function (e) {
-    ls.dragging = true; ls.sx = e.clientX - ls.x; ls.sy = e.clientY - ls.y;
-    lbVp.classList.add('is-grabbing');
-  });
-  window.addEventListener('mousemove', function (e) {
-    if (!ls.dragging) return;
-    ls.x = e.clientX - ls.sx; ls.y = e.clientY - ls.sy; applyT();
-  });
-  window.addEventListener('mouseup', function () {
-    ls.dragging = false; lbVp.classList.remove('is-grabbing');
-  });
-
-  var ts = { x: 0, y: 0 };
-  lbVp.addEventListener('touchstart', function (e) {
-    if (e.touches.length === 1) { ts.x = e.touches[0].clientX - ls.x; ts.y = e.touches[0].clientY - ls.y; }
-  }, { passive: true });
-  lbVp.addEventListener('touchmove', function (e) {
-    if (e.touches.length === 1) {
-      e.preventDefault();
-      ls.x = e.touches[0].clientX - ts.x; ls.y = e.touches[0].clientY - ts.y; applyT();
-    }
-  }, { passive: false });
-
-  document.querySelectorAll('.cpw-email-item').forEach(function (el) {
-    function go() { openLb(el.getAttribute('data-src')); }
-    el.addEventListener('click', go);
-    el.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); }
-    });
-  });
-
-  /* ── SCROLL REVEAL ── */
-  var revEls = document.querySelectorAll('#cpw .cpw-reveal');
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (en.isIntersecting) { en.target.classList.add('is-visible'); io.unobserve(en.target); }
-      });
-    }, { threshold: 0.1 });
-    revEls.forEach(function (el) { io.observe(el); });
-  } else {
-    revEls.forEach(function (el) { el.classList.add('is-visible'); });
-  }
-
-  /* ── NAV SCROLL EFFECT ── */
-  var nav = document.querySelector('#cpw .cpw-nav');
-  window.addEventListener('scroll', function () {
-    nav.style.background = window.scrollY > 60
-      ? 'rgba(4,5,9,0.97)'
-      : 'rgba(7,9,15,0.88)';
-  }, { passive: true });
-
-})();
-</script>
+<!-- Scroll-reveal + small UI interactions: see script.js -->
+<script src="script.js" defer></script>
 </body>
 </html>
