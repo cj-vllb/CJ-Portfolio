@@ -60,6 +60,28 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     toggleHeaderState();
     window.addEventListener('scroll', toggleHeaderState, { passive: true });
+
+    /* --------------------------------------------------------
+       FIXED HEADER SPACER
+       The header is now `position: fixed` (see the navbar fix in
+       style.css) so it's pulled out of normal document flow and no
+       longer pushes the page content down on its own. To stop the
+       hero section from sliding underneath it, we measure the
+       header's real rendered height and apply it as top padding on
+       <body>. This is re-measured on load and on resize, since the
+       header's height can change (e.g. the nav pill wrapping on
+       smaller screens), keeping the spacing accurate at any
+       viewport size without hardcoding a pixel value in the CSS.
+    ---------------------------------------------------------- */
+    const syncHeaderSpacer = () => {
+      document.body.style.paddingTop = `${header.offsetHeight}px`;
+    };
+    syncHeaderSpacer();
+    window.addEventListener('resize', syncHeaderSpacer);
+    // Fonts loading in can shift the header's height after first paint.
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(syncHeaderSpacer);
+    }
   }
 
   /* ----------------------------------------------------------
@@ -195,47 +217,79 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (filterBtns.length && portfolioCards.length) {
 
-    const TRANSITION_MS = 350; // must match .portfolio-card transition in CSS
+    // Must match the opacity/transform transition duration on
+    // .portfolio-card in style.css so the fade-out finishes before
+    // we swap the DOM state and fade the new set in.
+    const TRANSITION_MS = 350;
 
-    const applyFilter = (filter) => {
-      // The Email Marketing category gets its own 5-across grid layout
-      // (see ".portfolio-grid.is-email-view" in style.css); every other
-      // category keeps the standard 3-column Funnel/Automation layout.
-      if (portfolioGrid) {
-        portfolioGrid.classList.toggle('is-email-view', filter === 'email');
+    /* --------------------------------------------------------
+       applyFilter(filter, instant)
+       ----------------------------------------------------------
+       Runs in two clean, non-overlapping phases so cards never
+       render out of sync:
+
+       Phase 1 (skipped when `instant`): every currently-visible
+       card fades out together by adding ".is-hidden" to ALL
+       cards at once — old items close as one unified group
+       instead of drifting out individually.
+
+       Phase 2 (after the fade-out transition finishes): the
+       layout is updated in a single synchronous block — grid
+       view toggled, non-matching cards pulled from the flow with
+       display:none, matching cards restored to display:'' — then
+       we force a reflow before removing ".is-hidden" from just
+       the matching cards, so they fade/scale in simultaneously
+       against the *already-updated* grid instead of animating
+       into a layout that's still shifting under them.
+    -------------------------------------------------------- */
+    const applyFilter = (filter, instant = false) => {
+      const commit = () => {
+        // The Email Marketing category gets its own 5-across grid
+        // layout (see ".portfolio-grid.is-email-view" in style.css);
+        // every other category keeps the standard 3-column layout.
+        if (portfolioGrid) {
+          portfolioGrid.classList.toggle('is-email-view', filter === 'email');
+        }
+
+        portfolioCards.forEach((card) => {
+          const matches = card.dataset.category === filter;
+          card.style.display = matches ? '' : 'none';
+        });
+
+        // Force a synchronous reflow so the grid has fully settled
+        // into its new shape before we start the fade-in — this is
+        // what prevents the "overlap / layout jump" bug where cards
+        // animated in while the grid was still reflowing.
+        if (portfolioGrid) {
+          void portfolioGrid.offsetWidth;
+        }
+
+        portfolioCards.forEach((card) => {
+          card.classList.toggle('is-hidden', card.dataset.category !== filter);
+        });
+      };
+
+      if (instant) {
+        commit();
+        return;
       }
 
-      portfolioCards.forEach((card) => {
-        const matches = card.dataset.category === filter;
-
-        if (matches) {
-          // Make the card visible in the DOM first, then animate it in
-          card.style.display = '';
-          requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-              card.classList.remove('is-hidden');
-            });
-          });
-        } else {
-          // Animate out, then pull from flow
-          card.classList.add('is-hidden');
-          window.setTimeout(() => {
-            if (card.classList.contains('is-hidden')) {
-              card.style.display = 'none';
-            }
-          }, TRANSITION_MS);
-        }
-      });
+      // Phase 1: fade every card out together, as one group.
+      portfolioCards.forEach((card) => card.classList.add('is-hidden'));
+      window.setTimeout(commit, TRANSITION_MS);
     };
 
-    // Apply the filter that matches whichever button is pre-marked active
+    // Apply the filter that matches whichever button is pre-marked
+    // active — instantly, with no fade-out, since nothing has been
+    // shown to the user yet.
     const activeBtn = document.querySelector('.filter-btn.is-active');
     if (activeBtn) {
-      applyFilter(activeBtn.dataset.filter);
+      applyFilter(activeBtn.dataset.filter, true);
     }
 
     filterBtns.forEach((btn) => {
       btn.addEventListener('click', () => {
+        if (btn.classList.contains('is-active')) return;
         filterBtns.forEach((b) => b.classList.remove('is-active'));
         btn.classList.add('is-active');
         applyFilter(btn.dataset.filter);
