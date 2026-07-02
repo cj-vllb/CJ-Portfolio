@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CJ Villalba — Automation Portfolio</title>
+<title>CJ Villalba | Automation Portfolio</title>
 <meta name="description" content="Christian Jan Villalba — GoHighLevel funnel, automation, email marketing and AI agent specialist. Get in touch: christianvillalba.work@gmail.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
@@ -12,6 +12,11 @@
 </head>
 <body>
 
+<div class="bg-mesh" aria-hidden="true">
+  <span class="bg-orb bg-orb-1"></span>
+  <span class="bg-orb bg-orb-2"></span>
+  <span class="bg-orb bg-orb-3"></span>
+</div>
 <div class="bg-noise"></div>
 
 <!-- HEADER -->
@@ -24,9 +29,10 @@
       <a href="#about">About</a>
       <a href="#services">Services</a>
       <a href="#projects">Projects</a>
+      <a href="#tech-stack">Tools</a>
       <a href="#contact">Contact</a>
     </nav>
-    <a href="#contact" class="btn btn-light">Hire Me <span class="arrow">→</span></a>
+    <a href="#contact" class="btn btn-light btn-black-glass">Hire Me <span class="arrow">→</span></a>
   </div>
 </header>
 
@@ -36,14 +42,17 @@
   <div class="hero-section">
     <div class="container hero-left">
       <div class="hero-title-group reveal">
-        <h1 class="hero-title">Christian Jan<br>Villalba</h1>
+        <div>
+          <span class="hero-title-label">Hey there! I am...</span>
+          <h1 class="hero-title">Christian Jan<br>Villalba</h1>
+        </div>
         <div class="hero-cta-row">
           <span class="availability-pill"><span class="pulse-dot"></span>Available for New Projects</span>
           <button type="button" class="btn btn-glow" id="openProjectModal" aria-haspopup="dialog" aria-controls="projectModal">Start a Project <span class="arrow">→</span></button>
         </div>
       </div>
       <div class="hero-info reveal">
-        <span class="hero-info-label">AI Automation Architect</span>
+        <span class="hero-info-label">GoHighLevel Specialist</span>
         <p>I engineer automation systems and AI-powered workflows that move fast, scale hard, and run without you. From funnel architecture to intelligent agents — I build the infrastructure that makes businesses unstoppable.</p>
       </div>
     </div>
@@ -69,17 +78,45 @@
 <div class="modal-overlay" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle" hidden>
   <div class="modal-card">
     <button type="button" class="modal-close" id="closeProjectModal" aria-label="Close">✕</button>
-    <h3 id="projectModalTitle">Let's Start Your Project</h3>
-    <p class="modal-sub">Tell me a bit about what you need and I'll get back to you within one business day.</p>
-    <form class="contact-form modal-form" id="modalContactForm" onsubmit="return false;">
-      <label for="modal-name">Your Name</label>
-      <input type="text" id="modal-name" name="modal-name" placeholder="Enter your full name">
-      <label for="modal-email">Your Email</label>
-      <input type="email" id="modal-email" name="modal-email" placeholder="Enter the e-mail">
-      <label for="modal-message">More About The Project</label>
-      <textarea rows="3" id="modal-message" name="modal-message" placeholder="Funnel, automation, email, or AI agent — tell us what you need"></textarea>
-      <button type="submit" class="btn btn-light full">Send Message</button>
-    </form>
+    <div class="modal-body">
+      <div class="modal-form-col">
+        <h3 id="projectModalTitle">Let's Start Your Project</h3>
+        <p class="modal-sub">Tell me a bit about what you need and I'll get back to you within one business day.</p>
+        <form class="contact-form modal-form" id="modalContactForm" onsubmit="return false;">
+          <label for="modal-name">Your Name</label>
+          <input type="text" id="modal-name" name="modal-name" placeholder="Enter your full name">
+          <label for="modal-email">Your Email</label>
+          <input type="email" id="modal-email" name="modal-email" placeholder="Enter the e-mail">
+          <label for="modal-message">More About The Project</label>
+          <textarea rows="3" id="modal-message" name="modal-message" placeholder="Funnel, automation, email, or AI agent — tell us what you need"></textarea>
+          <button type="submit" class="btn btn-light btn-black-glass full">Send Message</button>
+        </form>
+      </div>
+      <div class="modal-info-col">
+        <div class="modal-info-block">
+          <span class="modal-info-label">Prefer Email?</span>
+          <a href="mailto:christianvillalba.work@gmail.com" class="modal-email-link">christianvillalba.work@gmail.com</a>
+          <p class="modal-info-note">Send project details straight to my inbox — I reply within one business day.</p>
+        </div>
+        <div class="modal-info-block">
+          <span class="modal-info-label">Find Me On</span>
+          <div class="modal-social-row">
+            <a href="https://www.facebook.com/christianjancj.villalba" class="modal-social-link" aria-label="Facebook" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-7.5h2.5l.5-3h-3V8.5c0-.87.24-1.46 1.49-1.46H16.5V4.34C16.09 4.29 15.16 4.2 14.08 4.2c-2.25 0-3.79 1.37-3.79 3.89V10.5H7.75v3h2.54V21h3.21Z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/siege.jayy/" class="modal-social-link" aria-label="Instagram" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c2.7 0 3.06.01 4.12.06 1.06.05 1.79.22 2.43.47.66.26 1.22.6 1.77 1.16.55.55.9 1.11 1.16 1.77.25.64.42 1.37.47 2.43.05 1.06.06 1.42.06 4.12s-.01 3.06-.06 4.12c-.05 1.06-.22 1.79-.47 2.43a4.9 4.9 0 0 1-1.16 1.77 4.9 4.9 0 0 1-1.77 1.16c-.64.25-1.37.42-2.43.47-1.06.05-1.42.06-4.12.06s-3.06-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47a4.9 4.9 0 0 1-1.77-1.16 4.9 4.9 0 0 1-1.16-1.77c-.25-.64-.42-1.37-.47-2.43C2.01 15.06 2 14.7 2 12s.01-3.06.06-4.12c.05-1.06.22-1.79.47-2.43.26-.66.6-1.22 1.16-1.77a4.9 4.9 0 0 1 1.77-1.16c.64-.25 1.37-.42 2.43-.47C8.94 2.01 9.3 2 12 2Zm0 2.16c-2.66 0-2.98.01-4.03.06-.87.04-1.34.18-1.65.3-.42.16-.71.36-1.02.67-.31.31-.5.6-.67 1.02-.12.31-.26.78-.3 1.65-.05 1.05-.06 1.37-.06 4.03s.01 2.98.06 4.03c.04.87.18 1.34.3 1.65.16.42.36.71.67 1.02.31.31.6.5 1.02.67.31.12.78.26 1.65.3 1.05.05 1.37.06 4.03.06s2.98-.01 4.03-.06c.87-.04 1.34-.18 1.65-.3.42-.16.71-.36 1.02-.67.31-.31.5-.6.67-1.02.12-.31.26-.78.3-1.65.05-1.05.06-1.37.06-4.03s-.01-2.98-.06-4.03c-.04-.87-.18-1.34-.3-1.65a2.75 2.75 0 0 0-.67-1.02 2.75 2.75 0 0 0-1.02-.67c-.31-.12-.78-.26-1.65-.3-1.05-.05-1.37-.06-4.03-.06Zm0 3.68a4.16 4.16 0 1 1 0 8.32 4.16 4.16 0 0 1 0-8.32Zm0 2.16a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm4.32-3.86a.97.97 0 1 1 0 1.94.97.97 0 0 1 0-1.94Z"/></svg>
+            </a>
+            <a href="https://github.com/cj-vllb" class="modal-social-link" aria-label="Github" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.58 2 12.19c0 4.49 2.87 8.3 6.84 9.65.5.1.68-.22.68-.49 0-.24-.01-1.05-.01-1.9-2.78.62-3.37-1.22-3.37-1.22-.45-1.18-1.11-1.5-1.11-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.04 1.03-2.76-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.64 1.03 2.76 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.19C22 6.58 17.52 2 12 2Z"/></svg>
+            </a>
+            <a href="https://www.linkedin.com/in/christian-jan-villalba-9b1b4a1b3/" class="modal-social-link" aria-label="LinkedIn" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05C21.4 8.65 22 11.1 22 14.3V21h-4v-6.2c0-1.48-.03-3.38-2.06-3.38-2.07 0-2.39 1.62-2.39 3.28V21h-4V9Z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -93,16 +130,16 @@
 
     <div class="stats-row reveal-row">
       <div class="stat reveal">
-        <span class="stat-label">Funnels Launched</span>
+        <span class="stat-label">Workflows & Funnels Launched</span>
         <span class="stat-number">10</span>
       </div>
       <div class="stat reveal">
         <span class="stat-label">Years Of Experience</span>
-        <span class="stat-number">Wala pa hehe</span>
+        <span class="stat-number">3+</span>
       </div>
       <div class="stat reveal">
-        <span class="stat-label">Happy Clients</span>
-        <span class="stat-number">Ako masaya</span>
+        <span class="stat-label">Client-Focused</span>
+        <span class="stat-number">100%</span>
       </div>
     </div>
   </div>
@@ -121,30 +158,30 @@
       <p class="section-desc reveal">I engineer the systems behind growth — from the first click to the closed deal — blending strategy, automation, and AI to build pipelines that perform.</p>
     </div>
 
-    <div class="cards-row services-grid reveal-row">
+    <div class="services-grid reveal-row">
       <div class="service-card reveal">
         <div class="service-icon">⬡</div>
         <span class="card-index">/01</span>
-        <h3>Funnels</h3>
+        <h3>Funnels & Landing Pages</h3>
         <p>Build high-converting funnels that turn cold traffic into paying customers, from landing page to checkout.</p>
       </div>
       <div class="service-card reveal">
         <div class="service-icon">▦</div>
         <span class="card-index">/02</span>
-        <h3>Automations</h3>
+        <h3>Workflow AI Automations</h3>
         <p>Design lifecycle automations that nurture, qualify and convert leads around the clock, with zero manual effort.</p>
       </div>
       <div class="service-card reveal">
         <div class="service-icon">⬢</div>
         <span class="card-index">/03</span>
-        <h3>Email Marketing</h3>
+        <h3>Email & SMS Marketing</h3>
         <p>Craft email sequences and campaigns that build trust, retain customers, and drive repeat revenue.</p>
       </div>
       <div class="service-card reveal">
         <div class="service-icon">▥</div>
         <span class="card-index">/04</span>
-        <h3>AI Agents</h3>
-        <p>Develop custom AI chatbots and voice bots that handle support, sales and bookings, 24 hours a day.</p>
+        <h3>Calendar & Booking Systems</h3>
+        <p>Fully automated scheduling systems that handle your appointments and reminders on complete autopilot.</p>
       </div>
     </div>
   </div>
@@ -161,7 +198,7 @@
         <span class="eyebrow">✺ Experiences</span>
         <h2 class="section-title">My Portfolio</h2>
       </div>
-      <p class="section-desc reveal">11 systems shipped inside GoHighLevel — funnels, automations and email marketing, engineered to convert.</p>
+      <p class="section-desc reveal">Multiple systems shipped inside GoHighLevel — funnels, automations and email marketing, engineered to convert.</p>
     </div>
 
     <div class="portfolio-filters reveal" role="tablist" aria-label="Filter portfolio by category">
@@ -275,7 +312,7 @@
         </div>
         <div class="portfolio-body">
           <h3>Modular Newsletter Template</h3>
-          <p>Brand-consistent, drag-and-drop newsletter system built once and reused weekly, with dynamic merge fields so every send still feels personal.</p>
+          <p>Reusable drag-and-drop newsletter with merge fields for a personal feel every send.</p>
           <div class="portfolio-stack">
             <span class="stack-pill">GHL Email Builder</span>
             <span class="stack-pill">Modular Blocks</span>
@@ -291,7 +328,7 @@
         </div>
         <div class="portfolio-body">
           <h3>Abandoned Cart Recovery Sequence</h3>
-          <p>Three-email cart recovery flow with escalating urgency and a time-boxed incentive, triggered the moment a checkout is abandoned.</p>
+          <p>Three-email flow with rising urgency, triggered the moment checkout is abandoned.</p>
           <div class="portfolio-stack">
             <span class="stack-pill">Cart-Abandon Trigger</span>
             <span class="stack-pill">Webhook Integration</span>
@@ -307,7 +344,7 @@
         </div>
         <div class="portfolio-body">
           <h3>Holiday Campaign Series</h3>
-          <p>Seasonal, multi-touch promotional sequence with A/B-tested subject lines, scheduled across segmented lists to spread send load and protect deliverability.</p>
+          <p>Seasonal, A/B-tested sequence scheduled across lists to protect deliverability.</p>
           <div class="portfolio-stack">
             <span class="stack-pill">Segmented Broadcasts</span>
             <span class="stack-pill">A/B Testing</span>
@@ -323,7 +360,7 @@
         </div>
         <div class="portfolio-body">
           <h3>Cold Outreach Email Flow</h3>
-          <p>Personalized B2B cold sequence with reply-detection logic that automatically pauses the flow the moment a prospect responds.</p>
+          <p>Personalized B2B sequence that auto-pauses the moment a prospect replies.</p>
           <div class="portfolio-stack">
             <span class="stack-pill">Personalization Tokens</span>
             <span class="stack-pill">Reply Detection</span>
@@ -339,7 +376,7 @@
         </div>
         <div class="portfolio-body">
           <h3>Client Onboarding Sequence</h3>
-          <p>Milestone-triggered onboarding flow that fires the next email only once a client completes the prior step, keeping new accounts moving without manual chasing.</p>
+          <p>Milestone-triggered emails that fire only once a client completes the prior step.</p>
           <div class="portfolio-stack">
             <span class="stack-pill">Pipeline-Stage Triggers</span>
             <span class="stack-pill">Conditional Content</span>
@@ -386,48 +423,69 @@
     </div>
 
     <div class="center-cta reveal">
-      <a href="#contact" class="btn btn-light">Let's Build Yours <span class="arrow">→</span></a>
+      <a href="#contact" class="btn btn-light btn-black-glass">Let's Build Yours <span class="arrow">→</span></a>
     </div>
   </div>
 </section>
 
 <div class="section-divider" aria-hidden="true"></div>
 
-<!-- PROCESS -->
-<section class="section process-panel">
+<!-- TECH STACK -->
+<section class="section tech-panel" id="tech-stack">
   <div class="container">
     <div class="section-head">
       <div class="reveal">
-        <span class="eyebrow">≈ Process</span>
-        <h2 class="section-title">The Journey to a<br>Successful System</h2>
+        <span class="eyebrow">⌬ Toolkit</span>
+        <h2 class="section-title">Tools I Use</h2>
       </div>
-      <p class="section-desc reveal">I keep things lean and collaborative — so ideas go from concept to a live, converting system without the chaos.</p>
+      <p class="section-desc reveal">The platforms and tools I combine daily to design, automate, and ship systems that convert.</p>
     </div>
 
-    <div class="cards-row process-grid reveal-row">
-      <div class="process-card reveal">
-        <span class="card-index">/01</span>
-        <h3>Audit & Discover</h3>
-        <p>I map your funnel, automations and tech stack to find exactly where revenue is leaking.</p>
-        <span class="process-icon">💡</span>
+    <div class="tech-grid reveal-row">
+      <div class="tech-card reveal">
+        <div class="tech-card-icon"><img src="tech-ghl.png" alt="GoHighLevel logo" loading="lazy"></div>
+        <h3>GoHighLevel</h3>
+        <p>CRM, funnels & automation</p>
       </div>
-      <div class="process-card reveal">
-        <span class="card-index">/02</span>
-        <h3>Strategy & Design</h3>
-        <p>I design the funnel flow, automation logic and AI conversation scripts around your customer.</p>
-        <span class="process-icon">✦</span>
+      <div class="tech-card reveal">
+        <div class="tech-card-icon"><img src="tech-zapier.png" alt="Zapier logo" loading="lazy"></div>
+        <h3>Zapier</h3>
+        <p>Cross-platform workflows</p>
       </div>
-      <div class="process-card reveal">
-        <span class="card-index">/03</span>
-        <h3>Build & Automate</h3>
-        <p>I build the funnel, connect the automations, and train your AI chatbot or voice bot.</p>
-        <span class="process-icon">⟨/⟩</span>
+      <div class="tech-card reveal">
+        <div class="tech-card-icon"><img src="tech-n8n.png" alt="n8n logo" loading="lazy"></div>
+        <h3>n8n</h3>
+        <p>Self-hosted automation</p>
       </div>
-      <div class="process-card reveal">
-        <span class="card-index">/04</span>
-        <h3>Launch & Optimize</h3>
-        <p>I launch, monitor performance, and continuously optimize every step for conversions.</p>
-        <span class="process-icon">🚀</span>
+      <div class="tech-card reveal">
+        <div class="tech-card-icon"><img src="tech-chatgpt.png" alt="ChatGPT logo" loading="lazy"></div>
+        <h3>ChatGPT</h3>
+        <p>Conversational AI drafting</p>
+      </div>
+      <div class="tech-card reveal">
+        <div class="tech-card-icon"><img src="tech-gemini.png" alt="Gemini logo" loading="lazy"></div>
+        <h3>Gemini</h3>
+        <p>Research & reasoning</p>
+      </div>
+      <div class="tech-card reveal">
+        <div class="tech-card-icon"><img src="tech-claude.png" alt="Claude logo" loading="lazy"></div>
+        <h3>Claude</h3>
+        <p>AI agent logic & content</p>
+      </div>
+      <div class="tech-card reveal">
+        <div class="tech-card-icon"><img src="tech-canva.png" alt="Canva logo" loading="lazy"></div>
+        <h3>Canva</h3>
+        <p>Visual & brand design</p>
+      </div>
+      <div class="tech-card reveal">
+        <div class="tech-card-icon"><img src="tech-vscode.png" alt="VSCode logo" loading="lazy"></div>
+        <h3>VSCode</h3>
+        <p>Custom code & scripts</p>
+      </div>
+      <div class="tech-card reveal">
+        <div class="tech-card-icon"><img src="tech-sheets.png" alt="Google Sheets logo" loading="lazy"></div>
+        <h3>Google Sheets</h3>
+        <p>Data & reporting</p>
       </div>
     </div>
   </div>
@@ -575,6 +633,23 @@ Tapidi yo era ol vida yo contigo"</p>
       <div class="contact-left-inner">
         <h2 class="section-title">Let's Build<br><em>Your Growth Engine</em></h2>
         <p class="contact-direct">Prefer email? <a href="mailto:christianvillalba.work@gmail.com">christianvillalba.work@gmail.com</a></p>
+        <div class="modal-info-block contact-social-block">
+          <span class="modal-info-label">Find Me On</span>
+          <div class="modal-social-row">
+            <a href="https://www.facebook.com/christianjancj.villalba" class="modal-social-link" aria-label="Facebook" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-7.5h2.5l.5-3h-3V8.5c0-.87.24-1.46 1.49-1.46H16.5V4.34C16.09 4.29 15.16 4.2 14.08 4.2c-2.25 0-3.79 1.37-3.79 3.89V10.5H7.75v3h2.54V21h3.21Z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/siege.jayy/" class="modal-social-link" aria-label="Instagram" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c2.7 0 3.06.01 4.12.06 1.06.05 1.79.22 2.43.47.66.26 1.22.6 1.77 1.16.55.55.9 1.11 1.16 1.77.25.64.42 1.37.47 2.43.05 1.06.06 1.42.06 4.12s-.01 3.06-.06 4.12c-.05 1.06-.22 1.79-.47 2.43a4.9 4.9 0 0 1-1.16 1.77 4.9 4.9 0 0 1-1.77 1.16c-.64.25-1.37.42-2.43.47-1.06.05-1.42.06-4.12.06s-3.06-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47a4.9 4.9 0 0 1-1.77-1.16 4.9 4.9 0 0 1-1.16-1.77c-.25-.64-.42-1.37-.47-2.43C2.01 15.06 2 14.7 2 12s.01-3.06.06-4.12c.05-1.06.22-1.79.47-2.43.26-.66.6-1.22 1.16-1.77a4.9 4.9 0 0 1 1.77-1.16c.64-.25 1.37-.42 2.43-.47C8.94 2.01 9.3 2 12 2Zm0 2.16c-2.66 0-2.98.01-4.03.06-.87.04-1.34.18-1.65.3-.42.16-.71.36-1.02.67-.31.31-.5.6-.67 1.02-.12.31-.26.78-.3 1.65-.05 1.05-.06 1.37-.06 4.03s.01 2.98.06 4.03c.04.87.18 1.34.3 1.65.16.42.36.71.67 1.02.31.31.6.5 1.02.67.31.12.78.26 1.65.3 1.05.05 1.37.06 4.03.06s2.98-.01 4.03-.06c.87-.04 1.34-.18 1.65-.3.42-.16.71-.36 1.02-.67.31-.31.5-.6.67-1.02.12-.31.26-.78.3-1.65.05-1.05.06-1.37.06-4.03s-.01-2.98-.06-4.03c-.04-.87-.18-1.34-.3-1.65a2.75 2.75 0 0 0-.67-1.02 2.75 2.75 0 0 0-1.02-.67c-.31-.12-.78-.26-1.65-.3-1.05-.05-1.37-.06-4.03-.06Zm0 3.68a4.16 4.16 0 1 1 0 8.32 4.16 4.16 0 0 1 0-8.32Zm0 2.16a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm4.32-3.86a.97.97 0 1 1 0 1.94.97.97 0 0 1 0-1.94Z"/></svg>
+            </a>
+            <a href="https://github.com/cj-vllb" class="modal-social-link" aria-label="Github" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.58 2 12.19c0 4.49 2.87 8.3 6.84 9.65.5.1.68-.22.68-.49 0-.24-.01-1.05-.01-1.9-2.78.62-3.37-1.22-3.37-1.22-.45-1.18-1.11-1.5-1.11-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.04 1.03-2.76-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.64 1.03 2.76 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.19C22 6.58 17.52 2 12 2Z"/></svg>
+            </a>
+            <a href="https://www.linkedin.com/in/christian-jan-villalba-9b1b4a1b3/" class="modal-social-link" aria-label="LinkedIn" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05C21.4 8.65 22 11.1 22 14.3V21h-4v-6.2c0-1.48-.03-3.38-2.06-3.38-2.07 0-2.39 1.62-2.39 3.28V21h-4V9Z"/></svg>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
     <div class="contact-right reveal">
@@ -586,7 +661,7 @@ Tapidi yo era ol vida yo contigo"</p>
         <input type="email" id="contact-email" name="contact-email" placeholder="Enter the e-mail">
         <label for="contact-message">More About The Project</label>
         <textarea rows="3" id="contact-message" name="contact-message" placeholder="Funnel, automation, email, or AI agent — tell us what you need"></textarea>
-        <button type="submit" class="btn btn-light full">Send Message</button>
+        <button type="submit" class="btn btn-light btn-black-glass full">Send Message</button>
       </form>
     </div>
   </div>
