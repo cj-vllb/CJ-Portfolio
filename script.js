@@ -32,9 +32,20 @@ document.addEventListener('DOMContentLoaded', () => {
       (entries, observer) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
+            const el = entry.target;
+            el.classList.add('is-visible');
             // Animate once, then stop watching — keeps things light.
-            observer.unobserve(entry.target);
+            observer.unobserve(el);
+            // Once the fade-up transition actually finishes, drop the
+            // will-change hint (see ".reveal.reveal-settled" in
+            // style.css) so this element's GPU layer isn't kept
+            // promoted for the rest of the session. `once: true` means
+            // this listener itself is cleaned up automatically too.
+            el.addEventListener(
+              'transitionend',
+              () => el.classList.add('reveal-settled'),
+              { once: true }
+            );
           }
         });
       },
@@ -55,29 +66,66 @@ document.addEventListener('DOMContentLoaded', () => {
   ---------------------------------------------------------- */
   const header = document.getElementById('siteHeader');
   if (header) {
-    const toggleHeaderState = () => {
-      header.classList.toggle('scrolled', window.scrollY > 12);
-    };
-    toggleHeaderState();
-    window.addEventListener('scroll', toggleHeaderState, { passive: true });
+    /* --------------------------------------------------------
+       HEADER ELEVATION — IntersectionObserver, not a scroll listener
+       A `window.addEventListener('scroll', ...)` handler — even a
+       passive one — still runs a JS callback on every scroll frame
+       the browser fires, competing with the browser's own scroll
+       compositing work on exactly the low-end/mobile devices this
+       page needs to stay smooth on. Instead, we watch a 12px-tall
+       "scroll-sentinel" element pinned to the very top of the page
+       (see index.html / .scroll-sentinel in style.css): once it's
+       fully scrolled out of the viewport, we know the page has
+       scrolled past 12px — the same threshold the old code checked —
+       and the observer fires exactly once per crossing, not on every
+       pixel of scroll in between.
+    ---------------------------------------------------------- */
+    const scrollSentinel = document.getElementById('scrollSentinel');
+    if (scrollSentinel && 'IntersectionObserver' in window) {
+      const headerScrollObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            header.classList.toggle('scrolled', !entry.isIntersecting);
+          });
+        },
+        { threshold: 0 }
+      );
+      headerScrollObserver.observe(scrollSentinel);
+    }
 
     /* --------------------------------------------------------
        FIXED HEADER SPACER
-       The header is now `position: fixed` (see the navbar fix in
-       style.css) so it's pulled out of normal document flow and no
-       longer pushes the page content down on its own. To stop the
-       hero section from sliding underneath it, we measure the
-       header's real rendered height and apply it as top padding on
-       <body>. This is re-measured on load and on resize, since the
-       header's height can change (e.g. the nav pill wrapping on
-       smaller screens), keeping the spacing accurate at any
-       viewport size without hardcoding a pixel value in the CSS.
+       The header is `position: fixed` (see style.css) so it's pulled
+       out of normal document flow and no longer pushes page content
+       down on its own. To stop the hero section from sliding
+       underneath it, we measure the header's real rendered height and
+       apply it as top padding on <body>. Re-measured on load/resize
+       since the header's height can change (e.g. the nav pill
+       wrapping on smaller screens).
+
+       `syncHeaderSpacer` reads `header.offsetHeight`, which forces a
+       synchronous layout — fine once, but `resize` can fire dozens of
+       times a second during a mobile orientation change or a window
+       drag, and firing a forced layout read on every single one of
+       those events is real layout-thrashing. We debounce it to at
+       most once per animation frame with requestAnimationFrame, so a
+       burst of resize events collapses into a single measurement.
     ---------------------------------------------------------- */
     const syncHeaderSpacer = () => {
       document.body.style.paddingTop = `${header.offsetHeight}px`;
     };
     syncHeaderSpacer();
-    window.addEventListener('resize', syncHeaderSpacer);
+
+    let resizeRAF = null;
+    const debouncedSyncHeaderSpacer = () => {
+      if (resizeRAF !== null) cancelAnimationFrame(resizeRAF);
+      resizeRAF = requestAnimationFrame(() => {
+        resizeRAF = null;
+        syncHeaderSpacer();
+      });
+    };
+    window.addEventListener('resize', debouncedSyncHeaderSpacer, { passive: true });
+
     // Fonts loading in can shift the header's height after first paint.
     if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(syncHeaderSpacer);
