@@ -161,12 +161,20 @@ ul{list-style:none;}
   top:0;left:-60%;
   width:40%;height:100%;
   background:linear-gradient(115deg, transparent, rgba(255,255,255,0.55) 45%, transparent 70%);
-  transform:skewX(-18deg);
-  transition:left .6s var(--ease-premium);
+  /* translateX(0) here (instead of leaving it implicit) so the browser
+     already has a transform value to interpolate from on the very
+     first hover, and can promote this layer up front. */
+  transform:translateX(0) skewX(-18deg);
+  transition:transform .6s var(--ease-premium);
   pointer-events:none;
+  will-change:transform;
 }
 .btn-light:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 14px 34px rgba(255,255,255,0.14);}
-.btn-light:hover::after{left:130%;}
+/* Was `left:130%` — animating `left` forces a synchronous layout
+   recalculation on every hover in/out. translateX moves the same
+   visual distance (190% of the button's width, i.e. 475% of this
+   pseudo-element's own 40%-wide box) purely on the compositor. */
+.btn-light:hover::after{transform:translateX(475%) skewX(-18deg);}
 .btn.full{width:100%;justify-content:center;margin:var(--space-2) 0;}
 .arrow{display:inline-block;}
 
@@ -179,6 +187,24 @@ summary:focus-visible{
   outline:2px solid rgba(255,255,255,0.6);
   outline-offset:3px;
   border-radius:6px;
+}
+
+/* ---------- Scroll sentinel ----------
+   A 12px-tall, invisible, non-interactive element pinned to the very
+   top of the page. script.js watches it with an IntersectionObserver
+   instead of a `window.addEventListener('scroll', ...)` handler: once
+   it scrolls fully out of the viewport (isIntersecting === false), the
+   header gets its `.scrolled` state — functionally identical to the
+   old `window.scrollY > 12` check, but the browser only notifies us
+   on that one boundary-crossing instead of on every scroll frame. */
+.scroll-sentinel{
+  position:absolute;
+  top:0;
+  left:0;
+  width:1px;
+  height:12px;
+  pointer-events:none;
+  opacity:0;
 }
 
 /* ---------- Header ---------- */
@@ -206,6 +232,15 @@ summary:focus-visible{
   -webkit-backdrop-filter:blur(15px) saturate(180%);
   transition:background .45s var(--ease-premium), box-shadow .45s var(--ease-premium), border-color .45s var(--ease-premium), backdrop-filter .45s var(--ease-premium);
   border-bottom:1px solid rgba(255,255,255,0.06);
+  /* Dedicated compositor layer: a fixed header sitting above scrolling
+     content gets repainted against whatever passes underneath it unless
+     it's promoted to its own GPU layer up front. translateZ(0) forces
+     that promotion and backface-visibility:hidden stops Safari from
+     re-rasterizing it on every scroll tick. Purely a compositing hint —
+     no visual change on any screen size. */
+  transform:translateZ(0);
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
 }
 /* Modern touch: header gains a slightly deeper glass + soft elevation once the page is scrolled (see script.js) */
 .site-header.scrolled{
@@ -339,17 +374,30 @@ summary:focus-visible{
   color:#cfcfcf;
 }
 .pulse-dot{
+  position:relative;
   width:8px;height:8px;
   border-radius:50%;
   background:var(--accent-yellow);
-  box-shadow:0 0 0 0 rgba(56,189,248,0.6);
-  animation:pulse-glow 2.2s infinite;
   flex-shrink:0;
 }
+/* Was an infinite box-shadow keyframe (forces a paint on every single
+   frame, forever, on a main-thread-bound property). Replaced with a
+   pseudo-element ring that only animates transform + opacity, so the
+   whole pulse now runs entirely on the compositor thread. Visually
+   identical: a ring expands from the dot's edge and fades out. */
+.pulse-dot::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  background:rgba(56,189,248,0.55);
+  animation:pulse-glow 2.2s infinite;
+  will-change:transform, opacity;
+}
 @keyframes pulse-glow{
-  0%{box-shadow:0 0 0 0 rgba(56,189,248,0.55);}
-  70%{box-shadow:0 0 0 10px rgba(56,189,248,0);}
-  100%{box-shadow:0 0 0 0 rgba(56,189,248,0);}
+  0%{transform:scale(1);opacity:.55;}
+  70%{transform:scale(2.25);opacity:0;}
+  100%{transform:scale(2.25);opacity:0;}
 }
 /* Glassmorphism CTA button — deep liquid-glass orb, tactile grain,
    ambient bloom glow that matches the accent gradient, and a
@@ -742,9 +790,10 @@ summary:focus-visible{
   top:0;left:-60%;
   width:40%;height:100%;
   background:linear-gradient(115deg, transparent, rgba(255,255,255,0.55) 45%, transparent 70%);
-  transform:skewX(-18deg);
-  transition:left .6s var(--ease-premium);
+  transform:translateX(0) skewX(-18deg);
+  transition:transform .6s var(--ease-premium);
   pointer-events:none;
+  will-change:transform;
   z-index:1;
 }
 .hero-play-btn:hover,
@@ -764,7 +813,7 @@ summary:focus-visible{
 .hero-play-btn:hover::before,
 .hero-play-btn:focus-visible::before{opacity:1;}
 .hero-play-btn:hover::after,
-.hero-play-btn:focus-visible::after{left:130%;}
+.hero-play-btn:focus-visible::after{transform:translateX(475%) skewX(-18deg);}
 .hero-play-btn:active{
   transform:scale(0.96);
   box-shadow:
@@ -893,6 +942,13 @@ summary:focus-visible{
   backdrop-filter:var(--glass-blur-sm);
   -webkit-backdrop-filter:var(--glass-blur-sm);
   box-shadow:var(--shadow-md);
+  /* layout+style containment: tells the browser this card's own
+     hover transition can never change surrounding layout, so a
+     hover here doesn't trigger a recalculation pass across the
+     whole services grid (or the document) on every frame. Does
+     NOT clip paint, so the glow box-shadow on hover still bleeds
+     outside the card exactly as before. */
+  contain:layout style;
   transition:transform .5s var(--ease-premium), box-shadow .5s var(--ease-premium),
               border-color .5s var(--ease-premium), backdrop-filter .5s var(--ease-premium),
               background .5s var(--ease-premium);
@@ -1064,6 +1120,10 @@ summary:focus-visible{
   flex-direction:column;
   box-shadow:var(--shadow-md);
   transform-style:preserve-3d;
+  /* Biggest card grid on the page (up to 11 cards animating a 3D tilt
+     on hover) — containment keeps each card's hover from being
+     considered a potential trigger for a grid-wide reflow. */
+  contain:layout style;
   transition:transform .5s var(--ease-premium), box-shadow .5s var(--ease-premium), opacity .35s var(--ease-premium), border-color .5s var(--ease-premium);
 }
 .portfolio-card::after{
@@ -1385,6 +1445,11 @@ summary:focus-visible{
   backdrop-filter:var(--glass-blur-sm);
   -webkit-backdrop-filter:var(--glass-blur-sm);
   box-shadow:var(--shadow-md);
+  /* These cards sit inside an already-animating (translateX) marquee
+     track; containment stops a card-hover pause/pop from being
+     treated as a potential layout trigger for the rest of the
+     always-moving track. */
+  contain:layout style;
   transition:transform .4s var(--ease-premium), box-shadow .4s var(--ease-premium),
               border-color .4s var(--ease-premium), backdrop-filter .4s var(--ease-premium),
               background .4s var(--ease-premium);
@@ -1473,6 +1538,7 @@ summary:focus-visible{
   backdrop-filter:var(--glass-blur-sm);
   -webkit-backdrop-filter:var(--glass-blur-sm);
   box-shadow:var(--shadow-md);
+  contain:layout style;
   animation:testi-float 6s ease-in-out infinite;
   transition:transform .5s var(--ease-premium), box-shadow .5s var(--ease-premium),
               border-color .5s var(--ease-premium), backdrop-filter .5s var(--ease-premium),
@@ -1576,6 +1642,13 @@ summary:focus-visible{
 .faq-item{
   border-bottom:1px solid var(--border);
   padding:var(--space-3) 0;
+  /* grid-template-rows (below) is the one remaining layout-affecting
+     animated property on the page — it has to stay, since it's what
+     gives the accordion its smooth, content-height-agnostic open/close
+     with no max-height guessing. Scoping it with containment keeps the
+     forced reflow local to this single FAQ item instead of the whole
+     document, so opening one item never re-measures the rest of the page. */
+  contain:layout;
 }
 .faq-question{
   display:flex;
@@ -2049,6 +2122,132 @@ summary:focus-visible{
   .section{padding:var(--space-12) 0;}
 }
 
+/* ===========================================================
+   MOBILE / LOW-END PERFORMANCE DEGRADATION  (≤1024px)
+   -----------------------------------------------------------
+   Everything below trades "eye-candy" for frame budget on phones,
+   tablets, and any low-end/low-refresh-rate screen. The desktop
+   experience above (backdrop blur, layered glow shadows, floating
+   orbs) is untouched — this block only fires under max-width:1024px.
+
+   The site's glass/shadow/grain system was already built on shared
+   CSS custom properties (--glass-blur-*, --shadow-*, --grain-texture),
+   so instead of hunting down and overriding 50+ individual rules,
+   we flatten those tokens once here and every surface that consumes
+   them (header, nav pill, buttons, cards, modal, footer...) goes
+   cheap automatically. A handful of elements hardcode their own
+   blur()/shadow values instead of a token — those get explicit
+   overrides right after.
+   =========================================================== */
+@media (max-width: 1024px){
+
+  /* 1. KILL BACKDROP-FILTER BLUR
+     backdrop-filter forces the browser to continuously re-sample and
+     blur whatever sits underneath an element on every single
+     composited frame — the single most expensive property on this
+     page, and murder on mobile GPUs once it's on a fixed header or
+     anything that moves/animates. All backgrounds using these tokens
+     are already semi-transparent rgba/gradients, so removing the
+     blur still reads as a tinted glass surface, just without the
+     frosted diffusion. */
+  :root{
+    --glass-blur-sm: none;
+    --glass-blur-md: none;
+    --glass-blur-lg: none;
+  }
+
+  /* 2. FLATTEN THE SHARED SHADOW SYSTEM
+     Collapse every multi-layer, wide-blur-radius shadow (some had a
+     sheen + 2-3 diffused layers reaching 90px of blur) down to one
+     small, cheap-to-rasterize shadow. Still reads as "lifted off the
+     background," just without the large-area blur every card/panel
+     was individually paying for. */
+  :root{
+    --shadow-sm: 0 2px 6px rgba(0,0,0,0.24);
+    --shadow-md: 0 3px 10px rgba(0,0,0,0.28);
+    --shadow-lg: 0 4px 14px rgba(0,0,0,0.3);
+    --shadow-hover: 0 4px 14px rgba(0,0,0,0.32);
+  }
+
+  /* 3. DROP THE GRAIN TEXTURE
+     A tactile feTurbulence noise SVG tiled across ~17 different
+     ::after layers (header, buttons, every card, modal, footer)
+     via mix-blend-mode:overlay. Individually near-invisible at ~5%
+     opacity, but 17 blended raster paints add up — and blend-mode
+     compositing isn't free either. One token flip removes the image
+     from all of them; the (harmless, imageless) blend-mode layer
+     left behind costs nothing. */
+  :root{
+    --grain-texture: none;
+  }
+
+  /* 4. HARDCODED BLUR VALUES that don't route through the tokens
+     above — the fixed header (always on-screen + often animating
+     underneath as the page scrolls, so its blur was the worst
+     offender of all), the modal (persistent while open), and a
+     few :hover/:focus-visible states that iOS Safari can leave
+     "stuck" on after a tap. Backgrounds are nudged more opaque so
+     they stay legible as flat panels instead of thin glass. */
+  .site-header{
+    background:rgb(9,10,16); /* fully opaque — was rgba(...,0.94); any
+      transparency on a fixed header means the browser still has to
+      account for whatever's scrolling underneath it on every frame */
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+  }
+  .site-header.scrolled{
+    background:rgb(7,8,13); /* fully opaque, was rgba(...,0.97) */
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+  }
+  .modal-overlay{
+    background:rgba(6,7,11,0.92);
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+  }
+  .modal-card{
+    background:linear-gradient(160deg, rgba(19,21,31,0.98), rgba(12,13,20,0.99));
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+  }
+  .btn-glow:hover,
+  .btn-black-glass:hover,
+  .hero-play-btn:hover,
+  .hero-play-btn:focus-visible,
+  .service-card:hover,
+  .tech-card:hover{
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+  }
+
+  /* 5. STOP INFINITE AMBIENT ANIMATIONS
+     Floating background orbs, drifting gradients — decorative loops
+     that ran forever regardless of whether anyone was looking, each
+     one forcing the compositor to keep working every frame even at
+     rest. Frozen to a static frame on mobile; kept alive for desktop. */
+  .bg-orb{
+    animation:none;
+    filter:none; /* the radial-gradient already has a soft transparent
+                    edge on its own — the extra blur(105px) was a
+                    purely additive cost, not load-bearing for the look */
+    will-change:auto;
+  }
+  .testi-card{
+    animation:none;
+  }
+
+  /* Note: .reveal--left/--right/--scale/--flip/--float no longer need
+     an override here — they're fade-only (translateY(15px)) by default
+     now, with the full directional/scale/3D/blur motion restored only
+     inside the @media (min-width:1025px) block further down. See the
+     "SCROLL REVEAL ANIMATIONS" section for the consolidated rules. */
+
+  /* Tech-stack marquee is left running: it's transform:translateX
+     only (no blur, no backdrop-filter riding along with it), so it's
+     already compositor-cheap and stays as functional, always-moving
+     content rather than "shine." */
+}
+
 /* ---------- Mobile (≤768px) ---------- */
 @media (max-width: 768px){
   .container{padding:0 var(--space-3);}
@@ -2205,6 +2404,15 @@ summary:focus-visible{
   opacity:1;
   transform:translateY(0);
 }
+/* script.js adds this class once the reveal transition's `transitionend`
+   fires. Every section on the page carries `.reveal`, so leaving
+   will-change on indefinitely would pin dozens of GPU layers in memory
+   for the entire session — exactly what starves compositor memory on
+   low-end/mobile GPUs. Releasing it right after the one-time animation
+   completes keeps the boost only while it's actually needed. */
+.reveal.reveal-settled{
+  will-change:auto;
+}
 
 /* Staggered reveal for direct children inside a ".reveal-row" container */
 .reveal-row .reveal:nth-child(1){transition-delay:0s;}
@@ -2222,39 +2430,88 @@ summary:focus-visible{
    Add one modifier alongside ".reveal", e.g. class="reveal reveal--scale".
 ---------------------------------------------------------- */
 
-/* Side-slide from the left — used for grid items that should
-   feel like they're sliding into a row from off-screen. */
-.reveal--left{transform:translateX(-52px);}
-.reveal--left.is-visible{transform:translateX(0);}
+/* ----------------------------------------------------------
+   MOBILE-FIRST DEFAULT — every variant below (left/right slide,
+   scale, 3D flip, float+blur) is a distinct transform running
+   opacity + transform in parallel with several *other* reveal
+   elements as the user scrolls. On mobile that's multiple
+   different transform origins/axes fighting for the compositor
+   on every scroll frame — the exact multidirectional-slide jank
+   this pass exists to kill.
 
-/* Side-slide from the right — pairs with .reveal--left so two
-   columns/stages can converge toward the center. */
-.reveal--right{transform:translateX(52px);}
-.reveal--right.is-visible{transform:translateX(0);}
-
-/* Subtle scale-up — cards grow into place rather than sliding,
-   good for tighter grids (stats, portfolio). */
-.reveal--scale{transform:scale(.9);}
-.reveal--scale.is-visible{transform:scale(1);}
-
-/* Soft 3D flip — tips forward on a top-anchored hinge, giving a
-   "card being laid down" feel. Needs its own perspective. */
+   So by default (i.e. on mobile, and any screen ≤1024px), every
+   variant collapses to the same cheap opacity fade with a single
+   shared axis: a 15px translateY micro-nudge. No skew, no scale,
+   no 3D perspective, no filter. The distinctive per-section motion
+   is restored for desktop only, in the min-width:1025px block
+   right below. -------------------------------------------------- */
+.reveal--left,
+.reveal--right,
+.reveal--scale,
 .reveal--flip{
-  transform:perspective(1000px) rotateX(-28deg) translateY(10px);
-  transform-origin:top center;
+  transform:translateY(15px);
 }
-.reveal--flip.is-visible{transform:perspective(1000px) rotateX(0deg) translateY(0);}
+.reveal--left.is-visible,
+.reveal--right.is-visible,
+.reveal--scale.is-visible,
+.reveal--flip.is-visible{
+  transform:translateY(0);
+}
 
-/* Floating entrance — rises further with a gentle blur-to-focus
-   for a dreamier, softer arrival than the standard fade-up. */
+/* .reveal--float used to pair its translateY with a filter:blur()
+   transition. filter isn't a compositor-only property — animating it
+   forces a repaint every frame it's in motion — so the mobile default
+   drops it entirely and reuses the same 15px fade as every other
+   variant, via the shared transition declared on the base .reveal
+   class. Desktop gets the full 46px rise + blur-to-focus back below. */
 .reveal--float{
-  transform:translateY(46px);
-  filter:blur(6px);
-  transition:opacity .9s cubic-bezier(.16,.84,.44,1),
-              transform .9s cubic-bezier(.16,.84,.44,1),
-              filter .9s cubic-bezier(.16,.84,.44,1);
+  transform:translateY(15px);
+  filter:none;
 }
-.reveal--float.is-visible{transform:translateY(0);filter:blur(0);}
+.reveal--float.is-visible{
+  transform:translateY(0);
+  filter:none;
+}
+
+/* ---------- Desktop-only: restore full directional motion ----------
+   Above 1024px there's headroom in the frame budget, so slides,
+   scale-ups, the 3D flip and the blur-float get their full personality
+   back. Mobile never loads these rules. */
+@media (min-width: 1025px){
+  /* Side-slide from the left — used for grid items that should
+     feel like they're sliding into a row from off-screen. */
+  .reveal--left{transform:translateX(-52px);}
+  .reveal--left.is-visible{transform:translateX(0);}
+
+  /* Side-slide from the right — pairs with .reveal--left so two
+     columns/stages can converge toward the center. */
+  .reveal--right{transform:translateX(52px);}
+  .reveal--right.is-visible{transform:translateX(0);}
+
+  /* Subtle scale-up — cards grow into place rather than sliding,
+     good for tighter grids (stats, portfolio). */
+  .reveal--scale{transform:scale(.9);}
+  .reveal--scale.is-visible{transform:scale(1);}
+
+  /* Soft 3D flip — tips forward on a top-anchored hinge, giving a
+     "card being laid down" feel. Needs its own perspective. */
+  .reveal--flip{
+    transform:perspective(1000px) rotateX(-28deg) translateY(10px);
+    transform-origin:top center;
+  }
+  .reveal--flip.is-visible{transform:perspective(1000px) rotateX(0deg) translateY(0);}
+
+  /* Floating entrance — rises further with a gentle blur-to-focus
+     for a dreamier, softer arrival than the standard fade-up. */
+  .reveal--float{
+    transform:translateY(46px);
+    filter:blur(6px);
+    transition:opacity .9s cubic-bezier(.16,.84,.44,1),
+                transform .9s cubic-bezier(.16,.84,.44,1),
+                filter .9s cubic-bezier(.16,.84,.44,1);
+  }
+  .reveal--float.is-visible{transform:translateY(0);filter:blur(0);}
+}
 
 @media (prefers-reduced-motion: reduce){
   .reveal,
