@@ -1,29 +1,39 @@
 /* ============================================================
-   SCROLL-REVEAL ANIMATIONS — Intersection Observer
-   ------------------------------------------------------------
-   This is the core animation engine for the page. It finds every
-   element marked with the ".reveal" class (added throughout
-   index.html — service cards, portfolio cards, section headers,
-   stats, FAQ items, footer columns, etc.) and watches each one
-   with an IntersectionObserver.
-
-   When an element scrolls into view, we add ".is-visible" to it.
-   The actual fade-in + slide-up animation itself lives in CSS
-   (see the "SCROLL REVEAL ANIMATIONS" block in style.css) — this
-   script's only job is to flip the class at the right time.
+   SCROLL-REVEAL — IntersectionObserver
+   Every ".reveal" element fades/rises into place once, the first
+   time it enters the viewport. Respects prefers-reduced-motion.
    ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ----------------------------------------------------------
-     SCROLL REVEAL — Intersection Observer
+     THEME TOGGLE — light/dark, persisted to localStorage.
+     The initial theme is already applied by a tiny inline
+     script in <head> (before first paint) to avoid a flash;
+     this just wires up the button and keeps it in sync.
   ---------------------------------------------------------- */
-  const revealEls = document.querySelectorAll('.reveal');
+  const themeToggle = document.getElementById('themeToggle');
+  if (themeToggle) {
+    const root = document.documentElement;
 
-  // Respect users who prefer reduced motion: reveal everything
-  // immediately instead of animating it in.
-  const prefersReducedMotion = window.matchMedia(
-    '(prefers-reduced-motion: reduce)'
-  ).matches;
+    const setLabel = (theme) => {
+      themeToggle.setAttribute(
+        'aria-label',
+        theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
+      );
+    };
+    setLabel(root.getAttribute('data-theme') || 'light');
+
+    themeToggle.addEventListener('click', () => {
+      const isDark = root.getAttribute('data-theme') === 'dark';
+      const next = isDark ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch (e) {}
+      setLabel(next);
+    });
+  }
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (prefersReducedMotion || !('IntersectionObserver' in window)) {
     revealEls.forEach((el) => el.classList.add('is-visible'));
@@ -32,119 +42,38 @@ document.addEventListener('DOMContentLoaded', () => {
       (entries, observer) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const el = entry.target;
-            el.classList.add('is-visible');
-            // Animate once, then stop watching — keeps things light.
-            observer.unobserve(el);
-            // Once the fade-up transition actually finishes, drop the
-            // will-change hint (see ".reveal.reveal-settled" in
-            // style.css) so this element's GPU layer isn't kept
-            // promoted for the rest of the session. `once: true` means
-            // this listener itself is cleaned up automatically too.
-            el.addEventListener(
-              'transitionend',
-              () => el.classList.add('reveal-settled'),
-              { once: true }
-            );
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
           }
         });
       },
-      {
-        threshold: 0.15,                 // trigger once 15% of the element is visible
-        rootMargin: '0px 0px -60px 0px', // reveal slightly before it's fully in view
-      }
+      { threshold: 0.15, rootMargin: '0px 0px -60px 0px' }
     );
-
     revealEls.forEach((el) => revealObserver.observe(el));
   }
 
   /* ----------------------------------------------------------
      HEADER ELEVATION ON SCROLL
-     Adds/removes ".scrolled" on the header so it gains a solid
-     background + soft shadow once the page has been scrolled,
-     and goes back to transparent at the very top.
+     Watches a 1px sentinel pinned to the top of the page instead
+     of a scroll listener, so the header only updates once per
+     boundary crossing rather than on every scroll frame.
   ---------------------------------------------------------- */
   const header = document.getElementById('siteHeader');
-  if (header) {
-    /* --------------------------------------------------------
-       HEADER ELEVATION — IntersectionObserver, not a scroll listener
-       A `window.addEventListener('scroll', ...)` handler — even a
-       passive one — still runs a JS callback on every scroll frame
-       the browser fires, competing with the browser's own scroll
-       compositing work on exactly the low-end/mobile devices this
-       page needs to stay smooth on. Instead, we watch a 12px-tall
-       "scroll-sentinel" element pinned to the very top of the page
-       (see index.html / .scroll-sentinel in style.css): once it's
-       fully scrolled out of the viewport, we know the page has
-       scrolled past 12px — the same threshold the old code checked —
-       and the observer fires exactly once per crossing, not on every
-       pixel of scroll in between.
-    ---------------------------------------------------------- */
-    const scrollSentinel = document.getElementById('scrollSentinel');
-    if (scrollSentinel && 'IntersectionObserver' in window) {
-      const headerScrollObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            header.classList.toggle('scrolled', !entry.isIntersecting);
-          });
-        },
-        { threshold: 0 }
-      );
-      headerScrollObserver.observe(scrollSentinel);
-    }
-
-    /* --------------------------------------------------------
-       FIXED HEADER SPACER
-       The header is `position: fixed` (see style.css) so it's pulled
-       out of normal document flow and no longer pushes page content
-       down on its own. To stop the hero section from sliding
-       underneath it, we measure the header's real rendered height and
-       apply it as top padding on <body>. Re-measured on load/resize
-       since the header's height can change (e.g. the nav pill
-       wrapping on smaller screens).
-
-       `syncHeaderSpacer` reads `header.offsetHeight`, which forces a
-       synchronous layout — fine once, but `resize` can fire dozens of
-       times a second during a mobile orientation change or a window
-       drag, and firing a forced layout read on every single one of
-       those events is real layout-thrashing. We debounce it to at
-       most once per animation frame with requestAnimationFrame, so a
-       burst of resize events collapses into a single measurement.
-    ---------------------------------------------------------- */
-    const syncHeaderSpacer = () => {
-      document.body.style.paddingTop = `${header.offsetHeight}px`;
-    };
-    syncHeaderSpacer();
-
-    let resizeRAF = null;
-    const debouncedSyncHeaderSpacer = () => {
-      if (resizeRAF !== null) cancelAnimationFrame(resizeRAF);
-      resizeRAF = requestAnimationFrame(() => {
-        resizeRAF = null;
-        syncHeaderSpacer();
-      });
-    };
-    window.addEventListener('resize', debouncedSyncHeaderSpacer, { passive: true });
-
-    // Fonts loading in can shift the header's height after first paint.
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(syncHeaderSpacer);
-    }
+  const scrollSentinel = document.getElementById('scrollSentinel');
+  if (header && scrollSentinel && 'IntersectionObserver' in window) {
+    const headerScrollObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          header.classList.toggle('scrolled', !entry.isIntersecting);
+        });
+      },
+      { threshold: 0 }
+    );
+    headerScrollObserver.observe(scrollSentinel);
   }
 
   /* ----------------------------------------------------------
      START A PROJECT MODAL
-     The "Start a Project" button in the hero triggers a modal
-     containing a dedicated copy of the contact form. All fields
-     use unique IDs prefixed with "modal-" to avoid any collision
-     with the main contact form in the footer/contact section.
-
-     The overlay uses CSS opacity + visibility transitions for a
-     smooth fade, and the inner card slides up on open. Closing
-     is possible via:
-       - The "✕" close button
-       - Clicking the dark backdrop outside the card
-       - Pressing the Escape key
   ---------------------------------------------------------- */
   const modalOverlay = document.getElementById('projectModal');
   const openModalBtn = document.getElementById('openProjectModal');
@@ -154,12 +83,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const openModal = () => {
       modalOverlay.removeAttribute('hidden');
-      // Small rAF delay ensures the browser has painted the element
-      // before we toggle the class, guaranteeing the CSS transition fires.
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           modalOverlay.classList.add('is-open');
-          document.body.style.overflow = 'hidden'; // prevent background scroll
+          document.body.style.overflow = 'hidden';
           closeModalBtn.focus();
         });
       });
@@ -168,42 +95,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeModal = () => {
       modalOverlay.classList.remove('is-open');
       document.body.style.overflow = '';
-      // Wait for the fade-out transition to finish before hiding
       modalOverlay.addEventListener(
         'transitionend',
         () => {
-          // Only re-hide if the modal is truly closed (not mid-reopen)
           if (!modalOverlay.classList.contains('is-open')) {
             modalOverlay.setAttribute('hidden', '');
           }
         },
         { once: true }
       );
-      openModalBtn.focus(); // return focus to the trigger
+      openModalBtn.focus();
     };
 
     openModalBtn.addEventListener('click', openModal);
     closeModalBtn.addEventListener('click', closeModal);
 
-    // Close when clicking the dark backdrop (but not the card itself)
     modalOverlay.addEventListener('click', (e) => {
       if (e.target === modalOverlay) closeModal();
     });
 
-    // Close on Escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && modalOverlay.classList.contains('is-open')) {
         closeModal();
       }
     });
 
-    // Handle the modal form submission (placeholder — wire to your own
-    // backend or form service as needed)
     const modalForm = document.getElementById('modalContactForm');
     if (modalForm) {
       modalForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        // TODO: replace with your actual form submission logic
+        // TODO: wire up to your actual form backend.
         console.log('Modal form submitted — wire up your backend here.');
         closeModal();
       });
@@ -212,22 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ----------------------------------------------------------
      HERO YOUTUBE PLAY TRIGGER — click-to-inject iframe
-     No <iframe> exists in the DOM at page load at all — just a
-     dark gradient placeholder (see ".hero-video-placeholder" in
-     style.css) and our custom glass play button. This keeps the
-     hero section responsive and free of any YouTube network/JS
-     cost until the visitor actually asks to watch something.
-
-     On click we:
-       1. Build the YouTube embed <iframe> from scratch, reading
-          the video ID off "data-video-id" on the wrapper, with
-          "autoplay=1" baked in from the start.
-       2. Insert it behind the play button, then fade the button
-          out and remove it from the click path.
-     The container itself already carries width:100%, max-width:
-     900px and aspect-ratio:16/9 (see ".hero-video-wrapper" in
-     style.css), so the injected iframe scales proportionately at
-     any viewport size with no extra JS sizing logic needed.
+     No iframe exists until the visitor actually presses play.
   ---------------------------------------------------------- */
   const heroPlayBtn = document.getElementById('heroPlayBtn');
   const heroVideoWrapper = document.getElementById('heroVideoWrapper');
@@ -237,12 +143,11 @@ document.addEventListener('DOMContentLoaded', () => {
     heroPlayBtn.addEventListener('click', () => {
       const videoId = heroVideoWrapper.dataset.videoId;
 
-      // Guard against double-clicks injecting a second iframe.
       if (!heroVideoWrapper.querySelector('iframe') && videoId) {
         const iframe = document.createElement('iframe');
         iframe.id = 'heroVideoFrame';
         iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&controls=1&modestbranding=1&rel=0`;
-        iframe.title = 'Funnel performance dashboard, featured project';
+        iframe.title = 'Featured project video';
         iframe.setAttribute('frameborder', '0');
         iframe.setAttribute(
           'allow',
@@ -250,13 +155,8 @@ document.addEventListener('DOMContentLoaded', () => {
         );
         iframe.allowFullscreen = true;
 
-        // Insert before the play button so the button's fade-out
-        // transition still renders on top while it dissolves.
         heroVideoWrapper.insertBefore(iframe, heroPlayBtn);
-
-        if (heroVideoPlaceholder) {
-          heroVideoPlaceholder.remove();
-        }
+        if (heroVideoPlaceholder) heroVideoPlaceholder.remove();
       }
 
       heroPlayBtn.classList.add('is-hidden');
@@ -266,13 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ----------------------------------------------------------
-     FAQ ACCORDION — smooth CSS grid-template-rows animation
-     The HTML uses a plain <button> + <div> pattern instead of
-     <details>/<summary> so we can fully control the animation.
-     Toggling ".is-open" on the .faq-item drives the CSS
-     transition on grid-template-rows (0fr → 1fr) for a
-     perfectly fluid, height-agnostic open/close that never
-     snaps or jumps — no max-height guessing required.
+     FAQ ACCORDION — grid-template-rows animation, single-open
   ---------------------------------------------------------- */
   const faqItems = document.querySelectorAll('.faq-item');
 
@@ -284,8 +178,6 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => {
       const isOpen = item.classList.contains('is-open');
 
-      // Optional: close all others for a single-open accordion.
-      // Remove the block below if you want multiple items open at once.
       faqItems.forEach((other) => {
         if (other !== item && other.classList.contains('is-open')) {
           other.classList.remove('is-open');
@@ -296,7 +188,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
 
-      // Toggle the clicked item
       item.classList.toggle('is-open', !isOpen);
       btn.setAttribute('aria-expanded', String(!isOpen));
       toggle.textContent = isOpen ? '+' : '−';
@@ -305,14 +196,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ----------------------------------------------------------
      PORTFOLIO CATEGORY FILTER
-     The portfolio grid is tagged by category via [data-category]
-     on each ".portfolio-card". AI Agent cards are no longer in
-     this grid — they live in their own sub-section below.
-
-     Clicking a filter pill fades/scales out non-matching cards
-     via ".is-hidden", then removes them from the flow with
-     display:none after the CSS transition completes (so the
-     grid reflows cleanly without leaving empty gaps).
+     Cards fade out together, then the non-matching ones are
+     pulled from the flow with display:none so the grid reflows
+     cleanly before the matching set fades back in.
   ---------------------------------------------------------- */
   const filterBtns = document.querySelectorAll('.filter-btn');
   const portfolioCards = document.querySelectorAll('.portfolio-card');
@@ -320,52 +206,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (filterBtns.length && portfolioCards.length) {
 
-    // Must match the opacity/transform transition duration on
-    // .portfolio-card in style.css so the fade-out finishes before
-    // we swap the DOM state and fade the new set in.
-    const TRANSITION_MS = 350;
+    const TRANSITION_MS = 250;
 
-    /* --------------------------------------------------------
-       applyFilter(filter, instant)
-       ----------------------------------------------------------
-       Runs in two clean, non-overlapping phases so cards never
-       render out of sync:
-
-       Phase 1 (skipped when `instant`): every currently-visible
-       card fades out together by adding ".is-hidden" to ALL
-       cards at once — old items close as one unified group
-       instead of drifting out individually.
-
-       Phase 2 (after the fade-out transition finishes): the
-       layout is updated in a single synchronous block — grid
-       view toggled, non-matching cards pulled from the flow with
-       display:none, matching cards restored to display:'' — then
-       we force a reflow before removing ".is-hidden" from just
-       the matching cards, so they fade/scale in simultaneously
-       against the *already-updated* grid instead of animating
-       into a layout that's still shifting under them.
-    -------------------------------------------------------- */
     const applyFilter = (filter, instant = false) => {
       const commit = () => {
-        // The Email Marketing category gets its own 5-across grid
-        // layout (see ".portfolio-grid.is-email-view" in style.css);
-        // every other category keeps the standard 3-column layout.
-        if (portfolioGrid) {
-          portfolioGrid.classList.toggle('is-email-view', filter === 'email');
-        }
-
         portfolioCards.forEach((card) => {
           const matches = card.dataset.category === filter;
           card.style.display = matches ? '' : 'none';
         });
 
-        // Force a synchronous reflow so the grid has fully settled
-        // into its new shape before we start the fade-in — this is
-        // what prevents the "overlap / layout jump" bug where cards
-        // animated in while the grid was still reflowing.
-        if (portfolioGrid) {
-          void portfolioGrid.offsetWidth;
-        }
+        if (portfolioGrid) void portfolioGrid.offsetWidth;
 
         portfolioCards.forEach((card) => {
           card.classList.toggle('is-hidden', card.dataset.category !== filter);
@@ -377,18 +227,12 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // Phase 1: fade every card out together, as one group.
       portfolioCards.forEach((card) => card.classList.add('is-hidden'));
       window.setTimeout(commit, TRANSITION_MS);
     };
 
-    // Apply the filter that matches whichever button is pre-marked
-    // active — instantly, with no fade-out, since nothing has been
-    // shown to the user yet.
     const activeBtn = document.querySelector('.filter-btn.is-active');
-    if (activeBtn) {
-      applyFilter(activeBtn.dataset.filter, true);
-    }
+    if (activeBtn) applyFilter(activeBtn.dataset.filter, true);
 
     filterBtns.forEach((btn) => {
       btn.addEventListener('click', () => {
@@ -401,9 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ----------------------------------------------------------
-     BACK TO TOP — smooth native scroll
-     Uses the native window.scrollTo with behavior:'smooth' for
-     a clean, dependency-free scroll to the top of the page.
+     BACK TO TOP
   ---------------------------------------------------------- */
   const backToTopBtn = document.getElementById('backToTop');
   if (backToTopBtn) {
