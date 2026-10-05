@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=3">
 <link rel="icon" type="image/png" href="logo.png">
 </head>
 <body>
@@ -90,8 +90,7 @@
         <p class="modal-sub">Tell me a bit about what you need and I'll get back to you within one business day.</p>
         <form class="contact-form modal-form" id="modalContactForm" data-web3form action="https://api.web3forms.com/submit" method="POST">
           <input type="hidden" name="access_key" value="ccc8810d-435e-4c83-b799-de3688014aec">
-          <input type="hidden" name="subject" value="[Portfolio Modal] New Contact Message">
-          <input type="hidden" name="from_name" value="Portfolio Modal">
+          <input type="hidden" name="subject" value="New Portfolio Inquiry">
           <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">
           <label for="modal-name">Your Name</label>
           <input type="text" id="modal-name" name="name" required placeholder="Enter your full name">
@@ -457,8 +456,7 @@
         <h3>Fill This Form Below</h3>
         <form class="contact-form" id="contactSectionForm" data-web3form action="https://api.web3forms.com/submit" method="POST">
           <input type="hidden" name="access_key" value="ccc8810d-435e-4c83-b799-de3688014aec">
-          <input type="hidden" name="subject" value="[Portfolio Contact Section] New Contact Message">
-          <input type="hidden" name="from_name" value="Portfolio Contact Section">
+          <input type="hidden" name="subject" value="New Portfolio Inquiry">
           <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">
           <div class="form-row">
             <div class="field">
@@ -512,6 +510,6 @@
   </div>
 </footer>
 
-<script src="script.js" defer></script>
+<script src="script.js?v=3" defer></script>
 </body>
 </html>
