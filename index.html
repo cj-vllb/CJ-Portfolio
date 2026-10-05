@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script>
+  (function(){
+    try{
+      var saved = localStorage.getItem('theme');
+      var theme = (saved === 'light' || saved === 'dark') ? saved : 'dark';
+      document.documentElement.setAttribute('data-theme', theme);
+    }catch(e){}
+  })();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CJ Villalba | Automation Portfolio</title>
+<meta name="description" content="Christian Jan Villalba — GoHighLevel funnel, automation, email marketing and AI agent specialist. Get in touch: christianvillalba.work@gmail.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" type="image/png" href="logo.png">
+</head>
+<body>
+
+<div class="scroll-sentinel" id="scrollSentinel" aria-hidden="true"></div>
+
+<!-- HEADER -->
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+    <a href="#" class="logo-image">
+      <img src="logo.png" alt="Christian Jan Villalba Logo">
+    </a>
+    <nav class="nav-links">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <button type="button" class="theme-toggle" id="themeToggle" aria-label="Switch to dark mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.7A8.5 8.5 0 1 1 9.3 3.5a7 7 0 0 0 11.2 11.2Z"/></svg>
+      </button>
+      <button type="button" class="btn btn-primary btn-sm" id="openProjectModalNav" aria-haspopup="dialog" aria-controls="projectModal">Hire Me <span class="arrow">→</span></button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-inner">
+    <span class="hero-title-label">Hey there! I am...</span>
+    <h1 class="hero-title">Christian Jan<br>Villalba</h1>
+
+    <div class="hero-cta-row">
+      <button type="button" class="btn btn-outline" id="openProjectModal" aria-haspopup="dialog" aria-controls="projectModal">Start a Project <span class="arrow">→</span></button>
+    </div>
+
+    <div class="hero-featured">
+      <h2 class="hero-video-title">Why You Should Partner With Me</h2>
+      <div class="hero-video-wrapper" id="heroVideoWrapper" data-video-id="YOUR_VIDEO_ID_HERE">
+        <div class="hero-video-placeholder" id="heroVideoPlaceholder" aria-hidden="true"></div>
+        <button type="button" class="hero-play-btn" id="heroPlayBtn" aria-label="Play featured project video">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7-11-7Z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container brand-strip" id="brandStrip" aria-label="Areas of work">
+    <div class="brand-track" id="brandTrack">
+      <div class="brand-set">
+        <span class="brand-mark">Web Development</span>
+        <span class="brand-mark">App Development</span>
+        <span class="brand-mark">UI/UX Design</span>
+        <span class="brand-mark">Full-Stack Development</span>
+        <span class="brand-mark">Custom Digital Solutions</span>
+        <span class="brand-mark">UI/UX & Frontend</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- START A PROJECT MODAL -->
+<div class="modal-overlay" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle" hidden>
+  <div class="modal-card">
+    <button type="button" class="modal-close" id="closeProjectModal" aria-label="Close">✕</button>
+    <div class="modal-body">
+      <div class="modal-form-col">
+        <h3 id="projectModalTitle">Let's Start Your Project</h3>
+        <p class="modal-sub">Tell me a bit about what you need and I'll get back to you within one business day.</p>
+        <form class="contact-form modal-form" id="modalContactForm" onsubmit="return false;">
+          <label for="modal-name">Your Name</label>
+          <input type="text" id="modal-name" name="modal-name" placeholder="Enter your full name">
+          <label for="modal-email">Your Email</label>
+          <input type="email" id="modal-email" name="modal-email" placeholder="Enter the e-mail">
+          <label for="modal-message">More About The Project</label>
+          <textarea rows="3" id="modal-message" name="modal-message" placeholder="Funnel, automation, email, or AI agent — tell us what you need"></textarea>
+          <button type="submit" class="btn btn-primary full">Send Message</button>
+        </form>
+      </div>
+      <div class="modal-info-col">
+        <div class="modal-info-block">
+          <span class="modal-info-label">Prefer Email?</span>
+          <a href="mailto:christianvillalba.work@gmail.com" class="modal-email-link">christianvillalba.work@gmail.com</a>
+          <p class="modal-info-note">Send project details straight to my inbox — I reply within one business day.</p>
+        </div>
+        <div class="modal-info-block">
+          <span class="modal-info-label">Find Me On</span>
+          <div class="modal-social-row">
+            <a href="https://www.facebook.com/christianjancj.villalba" class="modal-social-link" aria-label="Facebook" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-7.5h2.5l.5-3h-3V8.5c0-.87.24-1.46 1.49-1.46H16.5V4.34C16.09 4.29 15.16 4.2 14.08 4.2c-2.25 0-3.79 1.37-3.79 3.89V10.5H7.75v3h2.54V21h3.21Z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/siege.jayy/" class="modal-social-link" aria-label="Instagram" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c2.7 0 3.06.01 4.12.06 1.06.05 1.79.22 2.43.47.66.26 1.22.6 1.77 1.16.55.55.9 1.11 1.16 1.77.25.64.42 1.37.47 2.43.05 1.06.06 1.42.06 4.12s-.01 3.06-.06 4.12c-.05 1.06-.22 1.79-.47 2.43a4.9 4.9 0 0 1-1.16 1.77 4.9 4.9 0 0 1-1.77 1.16c-.64.25-1.37.42-2.43.47-1.06.05-1.42.06-4.12.06s-3.06-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47a4.9 4.9 0 0 1-1.77-1.16 4.9 4.9 0 0 1-1.16-1.77c-.25-.64-.42-1.37-.47-2.43C2.01 15.06 2 14.7 2 12s.01-3.06.06-4.12c.05-1.06.22-1.79.47-2.43.26-.66.6-1.22 1.16-1.77a4.9 4.9 0 0 1 1.77-1.16c.64-.25 1.37-.42 2.43-.47C8.94 2.01 9.3 2 12 2Zm0 2.16c-2.66 0-2.98.01-4.03.06-.87.04-1.34.18-1.65.3-.42.16-.71.36-1.02.67-.31.31-.5.6-.67 1.02-.12.31-.26.78-.3 1.65-.05 1.05-.06 1.37-.06 4.03s.01 2.98.06 4.03c.04.87.18 1.34.3 1.65.16.42.36.71.67 1.02.31.31.6.5 1.02.67.31.12.78.26 1.65.3 1.05.05 1.37.06 4.03.06s2.98-.01 4.03-.06c.87-.04 1.34-.18 1.65-.3.42-.16.71-.36 1.02-.67.31-.31.5-.6.67-1.02.12-.31.26-.78.3-1.65.05-1.05.06-1.37.06-4.03s-.01-2.98-.06-4.03c-.04-.87-.18-1.34-.3-1.65a2.75 2.75 0 0 0-.67-1.02 2.75 2.75 0 0 0-1.02-.67c-.31-.12-.78-.26-1.65-.3-1.05-.05-1.37-.06-4.03-.06Zm0 3.68a4.16 4.16 0 1 1 0 8.32 4.16 4.16 0 0 1 0-8.32Zm0 2.16a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm4.32-3.86a.97.97 0 1 1 0 1.94.97.97 0 0 1 0-1.94Z"/></svg>
+            </a>
+            <a href="https://github.com/cj-vllb" class="modal-social-link" aria-label="Github" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.58 2 12.19c0 4.49 2.87 8.3 6.84 9.65.5.1.68-.22.68-.49 0-.24-.01-1.05-.01-1.9-2.78.62-3.37-1.22-3.37-1.22-.45-1.18-1.11-1.5-1.11-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.04 1.03-2.76-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.64 1.03 2.76 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.19C22 6.58 17.52 2 12 2Z"/></svg>
+            </a>
+            <a href="https://www.linkedin.com/in/christian-jan-villalba-9b1b4a1b3/" class="modal-social-link" aria-label="LinkedIn" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05C21.4 8.65 22 11.1 22 14.3V21h-4v-6.2c0-1.48-.03-3.38-2.06-3.38-2.07 0-2.39 1.62-2.39 3.28V21h-4V9Z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT / STATS -->
+<section class="section about-panel" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <figure class="about-portrait reveal">
+        <!-- To use your photo: replace the .about-portrait-ph div with
+             <img class="about-portrait-img" src="portrait.jpg" alt="Portrait of Christian Jan Villalba"> -->
+        <div class="about-portrait-ph" role="img" aria-label="Portrait placeholder">
+          <svg viewBox="0 0 200 250" aria-hidden="true"><circle cx="100" cy="92" r="40"/><path d="M20 250c0-56 36-92 80-92s80 36 80 92Z"/></svg>
+        </div>
+      </figure>
+      <div class="about-content">
+        <span class="eyebrow reveal">About Me</span>
+        <h2 class="section-title about-heading reveal">Web &amp; App Developer</h2>
+        <p class="about-body reveal">I design and build modern websites and applications that are fast, functional, and built around real user needs. From responsive interfaces to full digital experiences, I turn ideas into reliable products that work.</p>
+        <div class="stats-row reveal-row">
+          <div class="stat reveal"><span class="stat-number">6</span><span class="stat-label">Webs and Apps Built</span></div>
+          <div class="stat reveal"><span class="stat-number">2</span><span class="stat-label">Years of Experience</span></div>
+          <div class="stat reveal"><span class="stat-number">24/7</span><span class="stat-label">Building &amp; Learning</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT WE DO -->
+<section class="section services" id="services">
+  <div class="container">
+    <div class="section-head">
+      <div class="reveal">
+        <span class="eyebrow">Expertise</span>
+        <h2 class="section-title">My Services</h2>
+      </div>
+      <p class="section-desc reveal">I turn ideas into modern websites and applications, combining clean development, thoughtful design, and practical functionality to build digital products that work.</p>
+    </div>
+
+    <div class="services-grid reveal-row">
+      <div class="service-card reveal">
+        <h3>Web Development</h3>
+        <p>Build responsive, modern websites that are clean, intuitive, and tailored to the needs of each project.</p>
+      </div>
+      <div class="service-card reveal">
+        <h3>App Development</h3>
+        <p>Create functional web and application experiences designed around usability, performance, and real-world use.</p>
+      </div>
+      <div class="service-card reveal">
+        <h3>UI/UX & Frontend</h3>
+        <p>Turn ideas and designs into polished interfaces with thoughtful layouts, smooth interactions, and a consistent user experience.</p>
+      </div>
+      <div class="service-card reveal">
+        <h3>Custom Digital Solutions</h3>
+        <p>Develop practical digital solutions that bring ideas to life, combining functionality, design, and modern web technologies.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="section projects" id="projects">
+  <div class="container">
+
+    <div class="section-head">
+      <div class="reveal">
+        <span class="eyebrow">Experiences</span>
+        <h2 class="section-title">My Portfolio</h2>
+      </div>
+      <p class="section-desc reveal">A collection of websites, applications, and digital projects built with thoughtful design, modern development, and real-world functionality.</p>
+    </div>
+
+    <div class="portfolio-filters reveal" role="tablist" aria-label="Filter portfolio by category">
+      <button type="button" class="filter-btn is-active" data-filter="funnel">Websites & Landing Pages <span>4</span></button>
+      <button type="button" class="filter-btn" data-filter="automation">Web & Mobile Apps <span>4</span></button>
+      <button type="button" class="filter-btn" data-filter="email">Others <span>2</span></button>
+    </div>
+
+    <div class="portfolio-grid reveal-row" id="portfolioGrid">
+      <article class="portfolio-card reveal" data-category="funnel">
+        <div class="portfolio-image">
+          <a href="https://cj-vllb.github.io/Apex-Physique/" target="_blank" rel="noopener">
+            <img src="website1.png" alt="Apex Physique website preview" loading="lazy">
+          </a>
+        </div>
+        <div class="portfolio-body">
+          <h3><a href="https://cj-vllb.github.io/Apex-Physique/" target="_blank" rel="noopener">Apex Physique Website</a></h3>
+          <p>A fitness landing page and booking experience that guides visitors toward a consultation.</p>
+        </div>
+      </article>
+      <article class="portfolio-card reveal" data-category="funnel">
+        <div class="portfolio-image">
+          <a href="#" target="_blank" rel="noopener">
+            <img src="website2.png" alt="Praystation Bible website preview" loading="lazy">
+          </a>
+        </div>
+        <div class="portfolio-body">
+          <h3><a href="#" target="_blank" rel="noopener">Praystation Bible Website</a></h3>
+          <p>A Bible reading, journaling, and prayer web experience with daily verses and reading streaks.</p>
+        </div>
+      </article>
+      <article class="portfolio-card reveal" data-category="funnel">
+        <div class="portfolio-image">
+          <a href="#" target="_blank" rel="noopener">
+            <img src="placeholder.jpg" alt="[Website Name] preview" loading="lazy">
+          </a>
+        </div>
+        <div class="portfolio-body">
+          <h3><a href="#" target="_blank" rel="noopener">[Website Name]</a></h3>
+          <p>[Website Description]</p>
+        </div>
+      </article>
+      <article class="portfolio-card reveal" data-category="funnel">
+        <div class="portfolio-image">
+          <a href="#" target="_blank" rel="noopener">
+            <img src="placeholder.jpg" alt="[Website Name] preview" loading="lazy">
+          </a>
+        </div>
+        <div class="portfolio-body">
+          <h3><a href="#" target="_blank" rel="noopener">[Website Name]</a></h3>
+          <p>[Website Description]</p>
+        </div>
+      </article>
+      <article class="portfolio-card reveal" data-category="automation">
+        <div class="portfolio-image">
+          <a href="#" target="_blank" rel="noopener">
+            <img src="placeholder.jpg" alt="[Application Name] preview" loading="lazy">
+          </a>
+        </div>
+        <div class="portfolio-body">
+          <h3><a href="#" target="_blank" rel="noopener">[Application Name]</a></h3>
+          <p>[Application Description]</p>
+        </div>
+      </article>
+      <article class="portfolio-card reveal" data-category="automation">
+        <div class="portfolio-image">
+          <a href="#" target="_blank" rel="noopener">
+            <img src="placeholder.jpg" alt="[Application Name] preview" loading="lazy">
+          </a>
+        </div>
+        <div class="portfolio-body">
+          <h3><a href="#" target="_blank" rel="noopener">[Application Name]</a></h3>
+          <p>[Application Description]</p>
+        </div>
+      </article>
+      <article class="portfolio-card reveal" data-category="automation">
+        <div class="portfolio-image">
+          <a href="#" target="_blank" rel="noopener">
+            <img src="placeholder.jpg" alt="[Application Name] preview" loading="lazy">
+          </a>
+        </div>
+        <div class="portfolio-body">
+          <h3><a href="#" target="_blank" rel="noopener">[Application Name]</a></h3>
+          <p>[Application Description]</p>
+        </div>
+      </article>
+      <article class="portfolio-card reveal" data-category="automation">
+        <div class="portfolio-image">
+          <a href="#" target="_blank" rel="noopener">
+            <img src="placeholder.jpg" alt="[Application Name] preview" loading="lazy">
+          </a>
+        </div>
+        <div class="portfolio-body">
+          <h3><a href="#" target="_blank" rel="noopener">[Application Name]</a></h3>
+          <p>[Application Description]</p>
+        </div>
+      </article>
+      <article class="portfolio-card reveal" data-category="email">
+        <div class="portfolio-image">
+          <a href="#" target="_blank" rel="noopener">
+            <img src="placeholder.jpg" alt="[Name] preview" loading="lazy">
+          </a>
+        </div>
+        <div class="portfolio-body">
+          <h3><a href="#" target="_blank" rel="noopener">[Name]</a></h3>
+          <p>[Description]</p>
+        </div>
+      </article>
+      <article class="portfolio-card reveal" data-category="email">
+        <div class="portfolio-image">
+          <a href="#" target="_blank" rel="noopener">
+            <img src="placeholder.jpg" alt="[Name] preview" loading="lazy">
+          </a>
+        </div>
+        <div class="portfolio-body">
+          <h3><a href="#" target="_blank" rel="noopener">[Name]</a></h3>
+          <p>[Description]</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="center-cta reveal">
+      <a href="#contact" class="btn btn-primary">Let's Build Yours <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section testimonials">
+  <div class="container testi-layout">
+    <div class="testi-intro">
+      <span class="eyebrow reveal">Testimonials</span>
+      <h2 class="section-title reveal">Hear From The Clients<br>I've Partnered With</h2>
+    </div>
+    <div class="testi-marquee" id="testiMarquee">
+      <div class="testi-track" id="testiTrack">
+        <div class="testi-set">
+          <div class="testi-card">
+            <div class="testi-person">
+              <span class="avatar"></span>
+              <div><strong>[Client Name]</strong><small>[Role, Company]</small></div>
+            </div>
+            <p>[Feedback 1 Here]</p>
+          </div>
+          <div class="testi-card">
+            <div class="testi-person">
+              <span class="avatar"></span>
+              <div><strong>[Client Name]</strong><small>[Role, Company]</small></div>
+            </div>
+            <p>[Feedback 2 Here]</p>
+          </div>
+          <div class="testi-card">
+            <div class="testi-person">
+              <span class="avatar"></span>
+              <div><strong>[Client Name]</strong><small>[Role, Company]</small></div>
+            </div>
+            <p>[Feedback 3 Here]</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section faq-panel">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow center reveal">FAQs</span>
+      <h2 class="section-title center reveal">Frequently Asked Questions</h2>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item reveal is-open">
+        <button type="button" class="faq-question" aria-expanded="true">
+          <span>How long does a typical project take?</span>
+          <span class="faq-toggle">−</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>Timelines depend on the scope of the project. A focused landing page moves faster than a full web or mobile app. Once I understand what you need, I'll share a clear timeline before any work begins.</p>
+          </div>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <button type="button" class="faq-question" aria-expanded="false">
+          <span>Do you build both websites and mobile apps?</span>
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>Yes. I build responsive websites and landing pages as well as web and mobile apps, covering the interface and the functionality behind it.</p>
+          </div>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <button type="button" class="faq-question" aria-expanded="false">
+          <span>Can you work from an existing design?</span>
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>Yes. I can turn an existing design into a polished, responsive interface, or design the interface myself if you don't have one yet.</p>
+          </div>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <button type="button" class="faq-question" aria-expanded="false">
+          <span>What do I need to provide to get started?</span>
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>A short description of what you want to build, who it's for, and any references or deadlines you have in mind. Send it through the Start a Project form or by email and I'll reply within one business day.</p>
+          </div>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <button type="button" class="faq-question" aria-expanded="false">
+          <span>Do you offer support after launch?</span>
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>Yes. If something needs fixing, updating, or improving after launch, get in touch and we'll agree on what you need.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section contact-panel" id="contact">
+  <div class="container">
+    <div class="contact-body">
+      <div class="contact-left reveal">
+        <h2 class="section-title contact-title reveal">Let's Build<br><em>Your Growth Engine</em></h2>
+        <p class="contact-direct">Prefer email? <a href="mailto:christianvillalba.work@gmail.com">christianvillalba.work@gmail.com</a></p>
+        <div class="modal-info-block contact-social-block">
+        <span class="modal-info-label">Find Me On</span>
+        <div class="modal-social-row">
+          <a href="https://www.facebook.com/christianjancj.villalba" class="modal-social-link" aria-label="Facebook" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-7.5h2.5l.5-3h-3V8.5c0-.87.24-1.46 1.49-1.46H16.5V4.34C16.09 4.29 15.16 4.2 14.08 4.2c-2.25 0-3.79 1.37-3.79 3.89V10.5H7.75v3h2.54V21h3.21Z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/siege.jayy/" class="modal-social-link" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c2.7 0 3.06.01 4.12.06 1.06.05 1.79.22 2.43.47.66.26 1.22.6 1.77 1.16.55.55.9 1.11 1.16 1.77.25.64.42 1.37.47 2.43.05 1.06.06 1.42.06 4.12s-.01 3.06-.06 4.12c-.05 1.06-.22 1.79-.47 2.43a4.9 4.9 0 0 1-1.16 1.77 4.9 4.9 0 0 1-1.77 1.16c-.64.25-1.37.42-2.43.47-1.06.05-1.42.06-4.12.06s-3.06-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47a4.9 4.9 0 0 1-1.77-1.16 4.9 4.9 0 0 1-1.16-1.77c-.25-.64-.42-1.37-.47-2.43C2.01 15.06 2 14.7 2 12s.01-3.06.06-4.12c.05-1.06.22-1.79.47-2.43.26-.66.6-1.22 1.16-1.77a4.9 4.9 0 0 1 1.77-1.16c.64-.25 1.37-.42 2.43-.47C8.94 2.01 9.3 2 12 2Zm0 2.16c-2.66 0-2.98.01-4.03.06-.87.04-1.34.18-1.65.3-.42.16-.71.36-1.02.67-.31.31-.5.6-.67 1.02-.12.31-.26.78-.3 1.65-.05 1.05-.06 1.37-.06 4.03s.01 2.98.06 4.03c.04.87.18 1.34.3 1.65.16.42.36.71.67 1.02.31.31.6.5 1.02.67.31.12.78.26 1.65.3 1.05.05 1.37.06 4.03.06s2.98-.01 4.03-.06c.87-.04 1.34-.18 1.65-.3.42-.16.71-.36 1.02-.67.31-.31.5-.6.67-1.02.12-.31.26-.78.3-1.65.05-1.05.06-1.37.06-4.03s-.01-2.98-.06-4.03c-.04-.87-.18-1.34-.3-1.65a2.75 2.75 0 0 0-.67-1.02 2.75 2.75 0 0 0-1.02-.67c-.31-.12-.78-.26-1.65-.3-1.05-.05-1.37-.06-4.03-.06Zm0 3.68a4.16 4.16 0 1 1 0 8.32 4.16 4.16 0 0 1 0-8.32Zm0 2.16a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm4.32-3.86a.97.97 0 1 1 0 1.94.97.97 0 0 1 0-1.94Z"/></svg>
+          </a>
+          <a href="https://github.com/cj-vllb" class="modal-social-link" aria-label="Github" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.58 2 12.19c0 4.49 2.87 8.3 6.84 9.65.5.1.68-.22.68-.49 0-.24-.01-1.05-.01-1.9-2.78.62-3.37-1.22-3.37-1.22-.45-1.18-1.11-1.5-1.11-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.04 1.03-2.76-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.64 1.03 2.76 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.19C22 6.58 17.52 2 12 2Z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/christian-jan-villalba-9b1b4a1b3/" class="modal-social-link" aria-label="LinkedIn" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05C21.4 8.65 22 11.1 22 14.3V21h-4v-6.2c0-1.48-.03-3.38-2.06-3.38-2.07 0-2.39 1.62-2.39 3.28V21h-4V9Z"/></svg>
+          </a>
+        </div>
+      </div>
+      </div>
+      <div class="contact-right reveal">
+        <h3>Fill This Form Below</h3>
+        <form class="contact-form" onsubmit="return false;">
+          <div class="form-row">
+            <div class="field">
+              <label for="contact-name">Your Name</label>
+              <input type="text" id="contact-name" name="contact-name" placeholder="Enter your full name">
+            </div>
+            <div class="field">
+              <label for="contact-email">Your Email</label>
+              <input type="email" id="contact-email" name="contact-email" placeholder="Enter the e-mail">
+            </div>
+          </div>
+          <label for="contact-message">More About The Project</label>
+          <textarea rows="4" id="contact-message" name="contact-message" placeholder="Funnel, automation, email, or AI agent — tell us what you need"></textarea>
+          <button type="submit" class="btn btn-primary full">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container footer-top reveal-row">
+    <div class="footer-col reveal">
+      <span class="footer-label">Location</span>
+      <p>Remote<br>Available Worldwide</p>
+      <span class="footer-label">Contact</span>
+      <p>christianvillalba.work@gmail.com</p>
+      <div class="footer-wordmark reveal">
+        <img src="logo.png" alt="Christian Jan Villalba Logo">
+      </div>
+    </div>
+    <div class="footer-col reveal">
+      <span class="footer-label">Links</span>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="footer-col reveal">
+      <span class="footer-label">Socials</span>
+      <a href="https://www.facebook.com/christianjancj.villalba">Facebook</a>
+      <a href="https://www.instagram.com/siege.jayy/">Instagram</a>
+      <a href="https://github.com/cj-vllb">Github</a>
+      <a href="https://www.linkedin.com/in/christian-jan-villalba-9b1b4a1b3/">LinkedIn</a>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© 2026 Christian Jan Villalba. All Rights Reserved</span>
+    <button type="button" class="back-to-top" id="backToTop">Back to top ↑</button>
+  </div>
+</footer>
+
+<!-- Scroll-reveal, theme toggle + small UI interactions: see script.js -->
+<script src="script.js" defer></script>
+</body>
+</html>
