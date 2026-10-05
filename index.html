@@ -88,14 +88,19 @@
       <div class="modal-form-col">
         <h3 id="projectModalTitle">Let's Start Your Project</h3>
         <p class="modal-sub">Tell me a bit about what you need and I'll get back to you within one business day.</p>
-        <form class="contact-form modal-form" id="modalContactForm" onsubmit="return false;">
+        <form class="contact-form modal-form" id="modalContactForm" data-web3form action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="ccc8810d-435e-4c83-b799-de3688014aec">
+          <input type="hidden" name="subject" value="[Portfolio Modal] New Contact Message">
+          <input type="hidden" name="from_name" value="Portfolio Modal">
+          <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">
           <label for="modal-name">Your Name</label>
-          <input type="text" id="modal-name" name="modal-name" placeholder="Enter your full name">
+          <input type="text" id="modal-name" name="name" required placeholder="Enter your full name">
           <label for="modal-email">Your Email</label>
-          <input type="email" id="modal-email" name="modal-email" placeholder="Enter the e-mail">
+          <input type="email" id="modal-email" name="email" required placeholder="Enter the e-mail">
           <label for="modal-message">More About The Project</label>
-          <textarea rows="3" id="modal-message" name="modal-message" placeholder="Funnel, automation, email, or AI agent — tell us what you need"></textarea>
+          <textarea rows="3" id="modal-message" name="message" required placeholder="Tell me about your project or idea"></textarea>
           <button type="submit" class="btn btn-primary full">Send Message</button>
+          <p class="form-status" role="status" aria-live="polite" hidden></p>
         </form>
       </div>
       <div class="modal-info-col">
@@ -131,8 +136,6 @@
   <div class="container">
     <div class="about-grid">
       <figure class="about-portrait reveal">
-        <!-- To use your photo: replace the .about-portrait-ph div with
-             <img class="about-portrait-img" src="portrait.jpg" alt="Portrait of Christian Jan Villalba"> -->
         <div class="about-portrait-ph" role="img" aria-label="Portrait placeholder">
           <svg viewBox="0 0 200 250" aria-hidden="true"><circle cx="100" cy="92" r="40"/><path d="M20 250c0-56 36-92 80-92s80 36 80 92Z"/></svg>
         </div>
@@ -452,20 +455,25 @@
       </div>
       <div class="contact-right reveal">
         <h3>Fill This Form Below</h3>
-        <form class="contact-form" onsubmit="return false;">
+        <form class="contact-form" id="contactSectionForm" data-web3form action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="ccc8810d-435e-4c83-b799-de3688014aec">
+          <input type="hidden" name="subject" value="[Portfolio Contact Section] New Contact Message">
+          <input type="hidden" name="from_name" value="Portfolio Contact Section">
+          <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">
           <div class="form-row">
             <div class="field">
               <label for="contact-name">Your Name</label>
-              <input type="text" id="contact-name" name="contact-name" placeholder="Enter your full name">
+              <input type="text" id="contact-name" name="name" required placeholder="Enter your full name">
             </div>
             <div class="field">
               <label for="contact-email">Your Email</label>
-              <input type="email" id="contact-email" name="contact-email" placeholder="Enter the e-mail">
+              <input type="email" id="contact-email" name="email" required placeholder="Enter the e-mail">
             </div>
           </div>
           <label for="contact-message">More About The Project</label>
-          <textarea rows="4" id="contact-message" name="contact-message" placeholder="Funnel, automation, email, or AI agent — tell us what you need"></textarea>
+          <textarea rows="4" id="contact-message" name="message" required placeholder="Tell me about your project or idea"></textarea>
           <button type="submit" class="btn btn-primary full">Send Message</button>
+          <p class="form-status" role="status" aria-live="polite" hidden></p>
         </form>
       </div>
     </div>
@@ -504,7 +512,6 @@
   </div>
 </footer>
 
-<!-- Scroll-reveal, theme toggle + small UI interactions: see script.js -->
 <script src="script.js" defer></script>
 </body>
 </html>

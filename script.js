@@ -1,16 +1,6 @@
-/* ============================================================
-   SCROLL-REVEAL — IntersectionObserver
-   Every ".reveal" element fades/rises into place once, the first
-   time it enters the viewport. Respects prefers-reduced-motion.
-   ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
 
-  /* ----------------------------------------------------------
-     THEME TOGGLE — light/dark, persisted to localStorage.
-     The initial theme is already applied by a tiny inline
-     script in <head> (before first paint) to avoid a flash;
-     this just wires up the button and keeps it in sync.
-  ---------------------------------------------------------- */
+  // Theme toggle
   const themeToggle = document.getElementById('themeToggle');
   if (themeToggle) {
     const root = document.documentElement;
@@ -52,12 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     revealEls.forEach((el) => revealObserver.observe(el));
   }
 
-  /* ----------------------------------------------------------
-     HEADER ELEVATION ON SCROLL
-     Watches a 1px sentinel pinned to the top of the page instead
-     of a scroll listener, so the header only updates once per
-     boundary crossing rather than on every scroll frame.
-  ---------------------------------------------------------- */
+  // Header elevation on scroll
   const header = document.getElementById('siteHeader');
   const scrollSentinel = document.getElementById('scrollSentinel');
   if (header && scrollSentinel && 'IntersectionObserver' in window) {
@@ -72,9 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
     headerScrollObserver.observe(scrollSentinel);
   }
 
-  /* ----------------------------------------------------------
-     START A PROJECT MODAL
-  ---------------------------------------------------------- */
+  // Start a project modal
   const modalOverlay = document.getElementById('projectModal');
   const openModalBtn = document.getElementById('openProjectModal');
   const closeModalBtn = document.getElementById('closeProjectModal');
@@ -120,22 +103,68 @@ document.addEventListener('DOMContentLoaded', () => {
         closeModal();
       }
     });
-
-    const modalForm = document.getElementById('modalContactForm');
-    if (modalForm) {
-      modalForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        // TODO: wire up to your actual form backend.
-        console.log('Modal form submitted — wire up your backend here.');
-        closeModal();
-      });
-    }
   }
 
-  /* ----------------------------------------------------------
-     HERO YOUTUBE PLAY TRIGGER — click-to-inject iframe
-     No iframe exists until the visitor actually presses play.
-  ---------------------------------------------------------- */
+  // Contact forms → Web3Forms
+  document.querySelectorAll('form[data-web3form]').forEach((form) => {
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const statusEl = form.querySelector('.form-status');
+
+    const showStatus = (message, isError) => {
+      if (!statusEl) return;
+      statusEl.textContent = message;
+      statusEl.classList.toggle('is-error', !!isError);
+      statusEl.hidden = false;
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (form.dataset.sending === 'true') return;
+
+      const data = new FormData(form);
+      const name = (data.get('name') || '').toString().trim();
+      const email = (data.get('email') || '').toString().trim();
+      const message = (data.get('message') || '').toString().trim();
+
+      if (!name || !message || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showStatus('Please enter your name, a valid email, and a message.', true);
+        return;
+      }
+
+      // Reply goes to the visitor, not the inbox owner
+      data.set('replyto', email);
+      data.set('name', name);
+      data.set('message', message);
+
+      form.dataset.sending = 'true';
+      const originalLabel = submitBtn ? submitBtn.textContent : '';
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; }
+      if (statusEl) statusEl.hidden = true;
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: data
+        });
+        const result = await response.json().catch(() => ({}));
+
+        if (response.ok && result.success) {
+          form.reset();
+          showStatus("Thanks! Your message was sent — I'll get back to you within one business day.", false);
+        } else {
+          showStatus((result && result.message) || 'Sorry, your message could not be sent. Please try again.', true);
+        }
+      } catch (err) {
+        showStatus('Network error — your message was not sent. Please check your connection and try again.', true);
+      } finally {
+        form.dataset.sending = 'false';
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalLabel; }
+      }
+    });
+  });
+
+  // Hero video play trigger
   const heroPlayBtn = document.getElementById('heroPlayBtn');
   const heroVideoWrapper = document.getElementById('heroVideoWrapper');
   const heroVideoPlaceholder = document.getElementById('heroVideoPlaceholder');
@@ -166,9 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ----------------------------------------------------------
-     FAQ ACCORDION — grid-template-rows animation, single-open
-  ---------------------------------------------------------- */
+  // FAQ accordion
   const faqItems = document.querySelectorAll('.faq-item');
 
   faqItems.forEach((item) => {
@@ -195,12 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ----------------------------------------------------------
-     PORTFOLIO CATEGORY FILTER
-     Cards fade out together, then the non-matching ones are
-     pulled from the flow with display:none so the grid reflows
-     cleanly before the matching set fades back in.
-  ---------------------------------------------------------- */
+  // Portfolio category filter
   const filterBtns = document.querySelectorAll('.filter-btn');
   const portfolioCards = document.querySelectorAll('.portfolio-card');
   const portfolioGrid = document.getElementById('portfolioGrid');
@@ -245,9 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ----------------------------------------------------------
-     BACK TO TOP
-  ---------------------------------------------------------- */
+  // Back to top
   const backToTopBtn = document.getElementById('backToTop');
   if (backToTopBtn) {
     backToTopBtn.addEventListener('click', () => {
@@ -255,12 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ----------------------------------------------------------
-     BRAND STRIP MARQUEE
-     One clone of the set gives a seamless loop. Duration is
-     derived from the set width so the pace is the same on every
-     screen. Reduced motion: stays a static, scrollable row.
-  ---------------------------------------------------------- */
+  // Brand strip marquee
   const brandStrip = document.getElementById('brandStrip');
   const brandTrack = document.getElementById('brandTrack');
   const brandSet = brandTrack && brandTrack.querySelector('.brand-set');
@@ -277,14 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if ('ResizeObserver' in window) new ResizeObserver(setBrandSpeed).observe(brandSet);
   }
 
-  /* ----------------------------------------------------------
-     TESTIMONIAL MARQUEE
-     The set is cloned once for a seamless loop. Speed is a
-     playbackRate that eases toward its target, so hovering slows
-     the row down smoothly (never a hard stop) and leaving eases
-     it back. Reduced motion / no Web Animations API: the row
-     stays a plain, manually scrollable strip.
-  ---------------------------------------------------------- */
+  // Testimonial marquee
   const testiMarquee = document.getElementById('testiMarquee');
   const testiTrack = document.getElementById('testiTrack');
   const testiSet = testiTrack && testiTrack.querySelector('.testi-set');
@@ -295,9 +303,9 @@ document.addEventListener('DOMContentLoaded', () => {
     testiTrack.appendChild(clone);
     testiMarquee.classList.add('is-animated');
 
-    const SPEED_PX_PER_S = 22;   // comfortable reading pace
-    const SLOW_RATE = 0.3;       // hover / touch speed relative to normal
-    const EASING = 0.06;         // how quickly speed changes (per frame)
+    const SPEED_PX_PER_S = 22;
+    const SLOW_RATE = 0.3;
+    const EASING = 0.06;
 
     const anim = testiTrack.animate(
       [{ transform: 'translateY(0)' }, { transform: 'translateY(-50%)' }],

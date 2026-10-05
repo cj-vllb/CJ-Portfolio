@@ -1,8 +1,4 @@
-/* ============================================================
-   DESIGN SYSTEM
-   One neutral palette, one typeface (Inter), three radii,
-   one spacing scale. Everything below reads from these tokens.
-   ============================================================ */
+/* Design system */
 :root,
 [data-theme="dark"] {
   color-scheme: dark;
@@ -75,9 +71,7 @@
   --transition-normal: 300ms var(--ease);
 }
 
-/* ============================================================
-   BASE
-   ============================================================ */
+/* Base */
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 16px); -webkit-text-size-adjust: 100%; }
 body {
@@ -90,7 +84,6 @@ body {
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
-/* Ambient light: two very soft, fixed radial lights behind everything */
 body::before {
   content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
   background:
@@ -110,14 +103,11 @@ button { cursor: pointer; }
 .scroll-sentinel { position: absolute; top: 0; left: 0; width: 1px; height: 1px; pointer-events: none; }
 .section { padding-block: var(--section-y); }
 
-/* Scroll reveal — one quiet fade, nothing staggered */
 .reveal { opacity: 0; transform: translateY(8px); transition: opacity 500ms var(--ease), transform 500ms var(--ease); }
 .reveal.is-visible { opacity: 1; transform: none; }
 @media (scripting: none) { .reveal { opacity: 1; transform: none; } }
 
-/* ============================================================
-   TYPE ROLES
-   ============================================================ */
+/* Type roles */
 .hero-title {
   font-size: var(--fs-display);
   font-weight: 800;
@@ -147,7 +137,6 @@ h3 { font-size: var(--fs-lg); font-weight: 700; line-height: 1.35; letter-spacin
   border-radius: var(--radius-pill);
 }
 
-/* Shared section header: label, title, description — always centered */
 .section-head {
   display: flex;
   flex-direction: column;
@@ -159,9 +148,7 @@ h3 { font-size: var(--fs-lg); font-weight: 700; line-height: 1.35; letter-spacin
 .section-head > div { display: flex; flex-direction: column; align-items: center; gap: var(--space-4); }
 .section-desc { max-width: 56ch; }
 
-/* ============================================================
-   BUTTONS
-   ============================================================ */
+/* Buttons */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -187,9 +174,7 @@ h3 { font-size: var(--fs-lg); font-weight: 700; line-height: 1.35; letter-spacin
 .btn-sm { height: 36px; padding: 0 var(--space-4); }
 .btn.full { width: 100%; }
 
-/* ============================================================
-   HEADER
-   ============================================================ */
+/* Header */
 .site-header {
   position: sticky;
   top: 0;
@@ -223,9 +208,7 @@ h3 { font-size: var(--fs-lg); font-weight: 700; line-height: 1.35; letter-spacin
 [data-theme="light"] .icon-sun { display: none; }
 [data-theme="light"] .icon-moon { display: block; }
 
-/* ============================================================
-   HERO
-   ============================================================ */
+/* Hero */
 .hero { position: relative; isolation: isolate; padding-top: clamp(56px, 9vw, 104px); padding-bottom: var(--section-y); }
 .hero::before, .contact-panel::before { content: ""; position: absolute; z-index: -1; pointer-events: none; background: radial-gradient(closest-side, var(--glow), transparent); }
 .hero::before { top: -40px; left: 50%; translate: -50% 0; width: min(1200px, 100vw); height: 680px; }
@@ -253,8 +236,7 @@ h3 { font-size: var(--fs-lg); font-weight: 700; line-height: 1.35; letter-spacin
 .hero-play-btn svg { width: 22px; height: 22px; fill: currentColor; margin-left: 3px; }
 .hero-play-btn.is-hidden { display: none; }
 
-/* Brand strip — continuous marquee. Base: a plain scrollable row.
-   script.js clones the set and adds .is-animated (skipped for reduced motion). */
+/* Brand strip: static row by default, script.js adds .is-animated for the marquee */
 .brand-strip { margin-top: var(--space-9); padding-block: var(--space-4); border: 1px solid var(--border); border-radius: var(--radius-md); overflow-x: auto; scrollbar-width: none; }
 .brand-track { display: flex; width: max-content; }
 .brand-set { display: flex; flex: none; }
@@ -265,9 +247,7 @@ h3 { font-size: var(--fs-lg); font-weight: 700; line-height: 1.35; letter-spacin
 .brand-strip.is-animated .brand-track { animation: marquee-x var(--brand-duration, 45s) linear infinite; }
 @keyframes marquee-x { to { transform: translateX(-50%); } }
 
-/* ============================================================
-   ABOUT
-   ============================================================ */
+/* About */
 .about-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: var(--space-8); align-items: stretch; }
 .about-portrait { margin: 0; }
 .about-portrait-ph, .about-portrait-img {
@@ -285,16 +265,12 @@ h3 { font-size: var(--fs-lg); font-weight: 700; line-height: 1.35; letter-spacin
 .stat-number { font-size: var(--fs-h2); font-weight: 700; line-height: 1.1; letter-spacing: -0.035em; }
 .stat-label { font-size: var(--fs-sm); color: var(--text-secondary); }
 
-/* ============================================================
-   SERVICES — ruled rows: hairline, name left, description right
-   ============================================================ */
+/* Services */
 .services-grid { border-bottom: 1px solid var(--border); }
 .service-card { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: var(--space-5); padding-block: var(--space-6); border-top: 1px solid var(--border); }
 .service-card p { color: var(--text-secondary); }
 
-/* ============================================================
-   PORTFOLIO — the thumbnail leads, then title and a short line
-   ============================================================ */
+/* Portfolio */
 .portfolio-filters { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-2); margin-bottom: var(--space-7); }
 .filter-btn {
   height: 36px; padding: 0 var(--space-4);
@@ -334,16 +310,13 @@ h3 { font-size: var(--fs-lg); font-weight: 700; line-height: 1.35; letter-spacin
 }
 .center-cta { display: flex; justify-content: center; margin-top: var(--space-8); }
 
-/* ============================================================
-   TESTIMONIALS — intro left, vertical marquee right
-   ============================================================ */
+/* Testimonials */
 .testimonials { position: relative; isolation: isolate; }
 .testimonials::before { top: 50%; left: 0; translate: -30% -50%; width: 760px; height: 560px; }
 .testi-layout { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: var(--space-8); align-items: center; }
 .testi-intro { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-4); }
 
-/* Base state (no JS / reduced motion): a plain scrollable column.
-   script.js adds .is-animated, clones the set and drives the speed. */
+/* Scrollable column by default, script.js adds .is-animated for the marquee */
 .testi-marquee { min-width: 0; height: clamp(440px, 62vh, 560px); overflow-y: auto; scrollbar-width: thin; }
 .testi-track { display: flex; flex-direction: column; }
 .testi-set { display: flex; flex-direction: column; gap: var(--space-4); padding-bottom: var(--space-4); }
@@ -363,9 +336,7 @@ h3 { font-size: var(--fs-lg); font-weight: 700; line-height: 1.35; letter-spacin
 .testi-person small { display: block; font-size: var(--fs-xs); color: var(--text-secondary); }
 .avatar { flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--surface-2); border: 1px solid var(--border); }
 
-/* ============================================================
-   FAQ
-   ============================================================ */
+/* FAQ */
 .faq-list { max-width: 720px; margin-inline: auto; border-bottom: 1px solid var(--border); }
 .faq-item { border-top: 1px solid var(--border); }
 .faq-question {
@@ -382,9 +353,7 @@ h3 { font-size: var(--fs-lg); font-weight: 700; line-height: 1.35; letter-spacin
 .faq-answer-inner { min-height: 0; overflow: hidden; }
 .faq-answer-inner p { padding: 0 var(--space-8) var(--space-5) 0; color: var(--text-secondary); }
 
-/* ============================================================
-   CONTACT + FORMS — heading, then details | form split by a hairline
-   ============================================================ */
+/* Contact + forms */
 .contact-panel { position: relative; isolation: isolate; }
 .contact-panel::before { bottom: -120px; left: 50%; translate: -50% 0; width: min(1100px, 100vw); height: 520px; }
 .contact-title { margin-bottom: var(--space-2); }
@@ -430,9 +399,7 @@ h3 { font-size: var(--fs-lg); font-weight: 700; line-height: 1.35; letter-spacin
 .modal-social-link:hover { border-color: var(--text-primary); }
 .modal-social-link svg { width: 18px; height: 18px; fill: currentColor; }
 
-/* ============================================================
-   MODAL
-   ============================================================ */
+/* Modal */
 .modal-overlay {
   position: fixed; inset: 0; z-index: 100;
   display: flex; align-items: center; justify-content: center;
@@ -463,9 +430,7 @@ h3 { font-size: var(--fs-lg); font-weight: 700; line-height: 1.35; letter-spacin
 .modal-info-col { display: flex; flex-direction: column; gap: var(--space-6); padding-top: var(--space-8); }
 .modal-info-note { font-size: var(--fs-sm); }
 
-/* ============================================================
-   FOOTER
-   ============================================================ */
+/* Footer */
 .site-footer { padding-top: var(--space-8); border-top: 1px solid var(--border); }
 .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: var(--space-7); }
 .footer-col { display: flex; flex-direction: column; gap: var(--space-2); font-size: var(--fs-sm); }
@@ -479,9 +444,7 @@ h3 { font-size: var(--fs-lg); font-weight: 700; line-height: 1.35; letter-spacin
 .back-to-top { padding: 0; font-size: var(--fs-xs); color: var(--text-secondary); background: none; border: 0; transition: color var(--transition-fast); }
 .back-to-top:hover { color: var(--text-primary); }
 
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
+/* Responsive */
 @media (max-width: 960px) {
   .testi-layout { grid-template-columns: 1fr; gap: var(--space-7); }
   .testimonials::before { translate: -30% -50%; width: 520px; }
@@ -495,8 +458,8 @@ h3 { font-size: var(--fs-lg); font-weight: 700; line-height: 1.35; letter-spacin
   .footer-top .footer-col:first-child { grid-column: 1 / -1; }
 }
 @media (max-width: 720px) {
-  .header-inner { flex-wrap: wrap; gap: var(--space-3) var(--space-4); padding-block: var(--space-3); }
-  .nav-links { order: 3; width: 100%; gap: var(--space-5); }
+  .nav-links { display: none; }
+  .section-head { margin-bottom: var(--space-7); }
   .stats-row { gap: var(--space-4); }
   .stat-number { font-size: 1.75rem; }
   .service-card { grid-template-columns: 1fr; gap: var(--space-2); padding-block: var(--space-5); }
@@ -504,16 +467,22 @@ h3 { font-size: var(--fs-lg); font-weight: 700; line-height: 1.35; letter-spacin
   .testi-marquee { height: 460px; }
   .faq-answer-inner p { padding-right: 0; }
   .modal-card { padding: var(--space-5); }
+  .modal-form-col h3 { padding-right: var(--space-7); }
   .hero-featured, .brand-strip { margin-top: var(--space-8); }
   .brand-mark { padding-inline: var(--space-5); }
 }
 @media (max-width: 560px) {
   .form-row { grid-template-columns: 1fr; gap: 0; }
-  .contact-direct a { font-size: var(--fs-base); }
+  .contact-direct a, .modal-email-link { font-size: var(--fs-sm); }
 }
 @media (max-width: 420px) {
   .footer-top { grid-template-columns: 1fr; }
   .hero-cta-row .btn { width: 100%; }
+}
+@media (pointer: coarse) {
+  .btn-sm, .theme-toggle, .modal-close, .modal-social-link { min-height: 44px; }
+  .theme-toggle, .modal-close, .modal-social-link { min-width: 44px; }
+  .filter-btn { min-height: 44px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -521,3 +490,9 @@ h3 { font-size: var(--fs-lg); font-weight: 700; line-height: 1.35; letter-spacin
   .brand-strip .brand-track { animation: none !important; }
   .portfolio-card:hover .portfolio-image img, .portfolio-card:hover .portfolio-body h3 { transform: none; }
 }
+
+/* Form status */
+.form-status { width: 100%; margin-top: var(--space-3); padding: var(--space-3) var(--space-4); border: 1px solid var(--border-strong); border-radius: var(--radius-sm); font-size: var(--fs-sm); color: var(--text-primary); background: var(--surface-2); }
+.form-status[hidden] { display: none; }
+.form-status.is-error { border-style: dashed; }
+.contact-form .btn.full:disabled { opacity: 0.6; cursor: progress; }
