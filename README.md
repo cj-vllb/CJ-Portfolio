@@ -4,7 +4,7 @@ Personal portfolio website for Christian Jan Villalba, a web and app developer. 
 
 ## Live Website
 
-[Live Website](www.workwithcj.digital)
+[Live Website](https://www.workwithcj.digital)
 
 ## Overview
 
