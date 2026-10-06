@@ -58,11 +58,11 @@ No npm packages, frameworks or animation libraries are used.
 
 ## Getting Started
 
-Clone the repository (replace `REPOSITORY` with the actual repository name):
+Clone the repository:
 
 ```bash
-git clone https://github.com/cj-vllb/REPOSITORY.git
-cd REPOSITORY
+git clone https://github.com/cj-vllb/CJ-Portfolio.git
+cd CJ-Portfolio
 ```
 
 ### Local development
