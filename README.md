@@ -4,9 +4,7 @@ Personal portfolio website for Christian Jan Villalba, a web and app developer. 
 
 ## Live Website
 
-[Live Website](YOUR-GITHUB-PAGES-URL)
-
-Replace the placeholder with the GitHub Pages URL for this repository.
+[Live Website](www.workwithcj.digital)
 
 ## Overview
 
