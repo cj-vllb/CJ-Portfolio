@@ -42,6 +42,67 @@ document.addEventListener('DOMContentLoaded', () => {
     revealEls.forEach((el) => revealObserver.observe(el));
   }
 
+  // About stat decode
+  const statsRow = document.querySelector('.stats-row');
+  const GLYPHS = 'ABCDEFGHJKLNPQRSTUXYZ0123456789';
+  const FRAME_MS = 60;
+  const randomGlyph = () => GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+  const isScrambled = (ch) => /[A-Za-z0-9]/.test(ch);
+
+  const decoders = Array.from(document.querySelectorAll('.stat-number')).map((el, index) => {
+    const final = el.textContent.trim();
+    const chars = Array.from(final);
+    let slot = 0;
+    const resolveAt = chars.map((ch) => (isScrambled(ch) ? 1400 + 350 * slot++ : 0));
+    return { el, final, chars, resolveAt, end: Math.max(...resolveAt), delay: index * 120, shown: final };
+  });
+
+  if (statsRow && decoders.length && !prefersReducedMotion && 'IntersectionObserver' in window) {
+    const render = (d, elapsed) => {
+      const text = d.chars
+        .map((ch, i) => (!isScrambled(ch) || elapsed >= d.resolveAt[i] ? ch : randomGlyph()))
+        .join('');
+      if (text !== d.shown) {
+        d.shown = text;
+        d.el.textContent = text;
+      }
+    };
+
+    decoders.forEach((d) => {
+      d.el.classList.add('is-counter');
+      render(d, -1);
+    });
+
+    const decodeObserver = new IntersectionObserver(
+      (entries, observer) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        observer.disconnect();
+        const start = performance.now();
+        let last = 0;
+        const tick = (now) => {
+          if (now - last >= FRAME_MS) {
+            last = now;
+            let running = false;
+            decoders.forEach((d) => {
+              const elapsed = now - start - d.delay;
+              if (elapsed >= d.end) {
+                if (d.shown !== d.final) { d.shown = d.final; d.el.textContent = d.final; }
+              } else {
+                running = true;
+                render(d, elapsed);
+              }
+            });
+            if (!running) return;
+          }
+          requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      },
+      { threshold: 0.5 }
+    );
+    decodeObserver.observe(statsRow);
+  }
+
   // Header elevation on scroll
   const header = document.getElementById('siteHeader');
   const scrollSentinel = document.getElementById('scrollSentinel');
