@@ -318,7 +318,7 @@ h3 { font-size: var(--fs-lg); font-weight: 700; line-height: 1.35; letter-spacin
 .portfolio-image a { position: relative; display: block; overflow: hidden; border-radius: var(--radius-md); }
 .portfolio-image a::before {
   content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: rgba(0, 0, 0, 0.24); transition: background-color 300ms var(--ease);
+  background: rgba(0, 0, 0, 0.10); transition: background-color 300ms var(--ease);
 }
 .portfolio-image a::after {
   content: ""; position: absolute; inset: 0; z-index: 2; margin: auto; width: 30px; height: 30px; pointer-events: none;
