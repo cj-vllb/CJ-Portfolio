@@ -283,48 +283,117 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Portfolio category filter
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const portfolioCards = document.querySelectorAll('.portfolio-card');
+  // Portfolio: build the filters and cards from projects.js, then filter them
+  const portfolioFilters = document.getElementById('portfolioFilters');
   const portfolioGrid = document.getElementById('portfolioGrid');
 
-  if (filterBtns.length && portfolioCards.length) {
+  if (portfolioFilters && portfolioGrid && typeof PORTFOLIO_PROJECTS !== 'undefined') {
 
     const TRANSITION_MS = 250;
+    let activeCategory = PORTFOLIO_CATEGORIES[0].id; // first tab ("all") is the default
 
-    const applyFilter = (filter, instant = false) => {
-      const commit = () => {
-        portfolioCards.forEach((card) => {
-          const matches = card.dataset.category === filter;
-          card.style.display = matches ? '' : 'none';
-        });
+    const projectsFor = (categoryId) =>
+      categoryId === 'all'
+        ? PORTFOLIO_PROJECTS
+        : PORTFOLIO_PROJECTS.filter((project) => project.category === categoryId);
 
-        if (portfolioGrid) void portfolioGrid.offsetWidth;
+    const createProjectCard = (project) => {
+      const card = document.createElement('article');
+      card.className = 'portfolio-card reveal';
+      card.dataset.category = project.category;
 
-        portfolioCards.forEach((card) => {
-          card.classList.toggle('is-hidden', card.dataset.category !== filter);
-        });
-      };
+      const image = document.createElement('div');
+      image.className = 'portfolio-image';
+      const imageLink = document.createElement('a');
+      imageLink.href = project.link;
+      imageLink.target = '_blank';
+      imageLink.rel = 'noopener noreferrer';
+      const img = document.createElement('img');
+      img.src = project.image;
+      img.alt = project.imageAlt || project.title + ' preview';
+      img.loading = 'lazy';
+      imageLink.appendChild(img);
+      image.appendChild(imageLink);
 
-      if (instant) {
-        commit();
-        return;
-      }
+      const body = document.createElement('div');
+      body.className = 'portfolio-body';
+      const heading = document.createElement('h3');
+      const titleLink = document.createElement('a');
+      titleLink.href = project.link;
+      titleLink.target = '_blank';
+      titleLink.rel = 'noopener';
+      titleLink.textContent = project.title;
+      heading.appendChild(titleLink);
+      const description = document.createElement('p');
+      description.textContent = project.description;
+      body.append(heading, description);
 
-      portfolioCards.forEach((card) => card.classList.add('is-hidden'));
-      window.setTimeout(commit, TRANSITION_MS);
+      card.append(image, body);
+      return card;
     };
 
-    const activeBtn = document.querySelector('.filter-btn.is-active');
-    if (activeBtn) applyFilter(activeBtn.dataset.filter, true);
+    // Reveal-on-scroll for the initial cards (same behaviour as other sections)
+    const revealObserver = (!prefersReducedMotion && 'IntersectionObserver' in window)
+      ? new IntersectionObserver((entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' })
+      : null;
 
-    filterBtns.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        if (btn.classList.contains('is-active')) return;
-        filterBtns.forEach((b) => b.classList.remove('is-active'));
-        btn.classList.add('is-active');
-        applyFilter(btn.dataset.filter);
+    const renderCards = (categoryId, isFilterSwitch) => {
+      portfolioGrid.replaceChildren();
+      projectsFor(categoryId).forEach((project) => {
+        const card = createProjectCard(project);
+        if (isFilterSwitch) {
+          // Already on screen: skip the scroll slide-in, just fade in.
+          card.classList.add('is-visible', 'is-swapped', 'is-hidden');
+        } else if (revealObserver) {
+          revealObserver.observe(card);
+        } else {
+          card.classList.add('is-visible');
+        }
+        portfolioGrid.appendChild(card);
       });
+      if (isFilterSwitch) {
+        void portfolioGrid.offsetWidth;
+        portfolioGrid.querySelectorAll('.portfolio-card').forEach((card) => card.classList.remove('is-hidden'));
+      }
+    };
+
+    // Filter buttons, with a project count on each
+    PORTFOLIO_CATEGORIES.forEach((category) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'filter-btn' + (category.id === activeCategory ? ' is-active' : '');
+      btn.dataset.filter = category.id;
+      btn.setAttribute('aria-pressed', String(category.id === activeCategory));
+      btn.append(category.label + ' ');
+      const count = document.createElement('span');
+      count.textContent = projectsFor(category.id).length;
+      btn.appendChild(count);
+      portfolioFilters.appendChild(btn);
+    });
+
+    renderCards(activeCategory, false);
+
+    let switchTimer;
+    portfolioFilters.addEventListener('click', (event) => {
+      const btn = event.target.closest('.filter-btn');
+      if (!btn || btn.dataset.filter === activeCategory) return;
+      activeCategory = btn.dataset.filter;
+      portfolioFilters.querySelectorAll('.filter-btn').forEach((b) => {
+        const isActive = b === btn;
+        b.classList.toggle('is-active', isActive);
+        b.setAttribute('aria-pressed', String(isActive));
+      });
+      // Fade the current cards out, then swap in the new set
+      portfolioGrid.querySelectorAll('.portfolio-card').forEach((card) => card.classList.add('is-hidden'));
+      window.clearTimeout(switchTimer);
+      switchTimer = window.setTimeout(() => renderCards(activeCategory, true), TRANSITION_MS);
     });
   }
 

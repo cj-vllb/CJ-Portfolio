@@ -13,7 +13,7 @@ A single-page static site. Sections, in order: hero with a featured video, About
 ## Features
 
 - Dark and light themes. Dark is the default, and the visitor's choice is saved in `localStorage`.
-- Portfolio grid with three category tabs (Websites & Landing Pages, Web & Mobile Apps, Others) and a fade transition between categories.
+- Portfolio grid with category tabs (All, Web & Mobile Apps, Websites & Landing Pages) and a fade transition between categories. Cards and tabs are generated from `projects.js`; to add a project, add one object there.
 - Project thumbnails with a darkened overlay and an external-link icon on hover. Project links open in a new tab.
 - Two contact forms, one in a "Start a project" modal and one in the Contact section, both sent through Web3Forms.
 - About statistics that animate with a character-decode effect the first time they scroll into view.

@@ -314,6 +314,9 @@ h3 { font-size: var(--fs-lg); font-weight: 700; line-height: 1.35; letter-spacin
 .portfolio-card:nth-child(odd) { --reveal-x: calc(var(--reveal-shift) * -1); }
 .portfolio-card:nth-child(even) { --reveal-x: var(--reveal-shift); --reveal-delay: 80ms; }
 .portfolio-card.is-visible { animation: card-slide-in 650ms var(--ease) var(--reveal-delay, 0ms) backwards; }
+.portfolio-card.is-swapped { animation: none; }
+/* A lone project is centred at normal card width instead of leaving an empty column */
+.portfolio-card:only-child { grid-column: 1 / -1; justify-self: center; width: calc(50% - var(--space-5) / 2); }
 @keyframes card-slide-in { from { opacity: 0; transform: translateX(var(--reveal-x)); } }
 .portfolio-image a { position: relative; display: block; overflow: hidden; border-radius: var(--radius-md); }
 .portfolio-image a::before {
@@ -511,6 +514,7 @@ h3 { font-size: var(--fs-lg); font-weight: 700; line-height: 1.35; letter-spacin
   .service-card { grid-template-columns: 1fr; gap: var(--space-2); padding-block: var(--space-5); }
   .portfolio-grid { grid-template-columns: 1fr; gap: var(--space-7); --reveal-shift: 16px; }
   .portfolio-card:nth-child(even) { --reveal-delay: 0ms; }
+  .portfolio-card:only-child { width: 100%; }
   .testi-marquee { height: 460px; }
   .faq-answer-inner p { padding-right: 0; }
   .modal-card { padding: var(--space-5); }
